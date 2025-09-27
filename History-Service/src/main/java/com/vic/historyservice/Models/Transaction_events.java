@@ -1,6 +1,7 @@
 package com.vic.historyservice.Models;
 
-import com.fasterxml.jackson.databind.JsonNode;
+
+import com.vic.historyservice.Enums.EventTypes;
 import jakarta.persistence.*;
 import org.hibernate.annotations.UuidGenerator;
 import org.springframework.data.annotation.CreatedDate;
@@ -10,9 +11,9 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "transaction_events")
+@Table(name = "Transaction_events")
 @EntityListeners(AuditingEntityListener.class)
-public class transaction_events {
+public class Transaction_events {
     @Id
     @GeneratedValue(generator = "uuid")
     @UuidGenerator
@@ -28,8 +29,9 @@ public class transaction_events {
     @Column(precision = 19, scale = 4, nullable = false)
     private BigDecimal amount;
 
+    @Enumerated(EnumType.STRING)
     @Column(length = 30, nullable = false)
-    private String event_type;
+    private EventTypes event_type;
 
     @Column(length = 36)
     private String transaction_id;
@@ -41,6 +43,8 @@ public class transaction_events {
     @Column(columnDefinition = "jsonb", name = "event_data")
     private String eventData;
 
+    public Transaction_events() {
+    }
 
     public String getId() {
         return id;
@@ -74,11 +78,11 @@ public class transaction_events {
         this.amount = amount;
     }
 
-    public String getEvent_type() {
+    public EventTypes getEvent_type() {
         return event_type;
     }
 
-    public void setEvent_type(String event_type) {
+    public void setEvent_type(EventTypes event_type) {
         this.event_type = event_type;
     }
 
