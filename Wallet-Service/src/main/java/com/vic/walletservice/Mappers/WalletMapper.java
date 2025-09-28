@@ -1,14 +1,14 @@
 package com.vic.walletservice.Mappers;
 
 import com.vic.walletservice.Dtos.CreateWalletRequest;
-import com.vic.walletservice.Dtos.CreateWalletResponse;
+import com.vic.walletservice.Dtos.WalletResponse;
 import com.vic.walletservice.Enums.EventTypes;
 import com.vic.walletservice.Models.Wallet;
 
 public class WalletMapper {
 
-    public static CreateWalletResponse toDto(Wallet wallet) {
-    return new CreateWalletResponse(
+    public static WalletResponse toDto(Wallet wallet) {
+    return new WalletResponse(
             EventTypes.WALLET_CREATED,
             wallet.getId(),
             wallet.getUser_id(),

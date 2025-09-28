@@ -1,16 +1,17 @@
-package com.vic.walletservice.Dtos;
+package com.vic.historyservice.Dtos;
 
-import com.vic.walletservice.Enums.EventTypes;
+import com.vic.historyservice.Enums.EventTypes;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+public record WalletEvent(
 
-public record WalletEventRequest(
         EventTypes eventType,
         String walletId,
         String userId,
         BigDecimal amount,
         String transactionId,
         LocalDateTime timeStamp
-) {}
+) {
+}

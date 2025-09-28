@@ -5,7 +5,7 @@ import com.vic.walletservice.Enums.EventTypes;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-public record CreateWalletResponse(
+public record WalletResponse(
         EventTypes eventType,
         String walletId,
         String userId,

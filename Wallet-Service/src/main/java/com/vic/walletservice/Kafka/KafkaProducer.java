@@ -30,12 +30,12 @@ public class KafkaProducer {
         kafkaTemplate.send(message);
     }
 
-    public void sendTransactionEvent(WalletTransactionEventRequest transactionEventRequest) {
-        logger.info("Sending event with body {}", transactionEventRequest);
-        Message <WalletTransactionEventRequest> message = MessageBuilder.withPayload(transactionEventRequest)
-                .setHeader(TOPIC, "wallet_transaction_event_topic")
-                .build();
-
-        kafkaTemplate.send(message);
-    }
+//    public void sendTransactionEvent(WalletTransactionEventRequest transactionEventRequest) {
+//        logger.info("Sending event with body {}", transactionEventRequest);
+//        Message <WalletTransactionEventRequest> message = MessageBuilder.withPayload(transactionEventRequest)
+//                .setHeader(TOPIC, "wallet_transaction_event_topic")
+//                .build();
+//
+//        kafkaTemplate.send(message);
+//    }
 }
