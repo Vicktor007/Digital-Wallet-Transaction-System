@@ -17,8 +17,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.util.Collections;
 import java.util.List;
+
+import static java.lang.Math.max;
+import static java.lang.Math.min;
 
 @Service
 public class walletService {
@@ -56,7 +58,7 @@ public class walletService {
 
     }
 
-    public WalletResponse fundWallet(String walletId, String userId, BigDecimal amount) {
+    public TransactionStatus fundWallet(String walletId, String userId, BigDecimal amount) {
         Wallet wallet = walletRepository.findById(walletId).orElseThrow(() -> new IllegalArgumentException("Wallet not found"));
 
 
@@ -65,7 +67,8 @@ public class walletService {
         transactions.setWallet(wallet);
         transactions.setAmount(amount);
         transactions.setType(TransactionType.FUND);
-        TransactionStatus status;
+
+        TransactionStatus status = TransactionStatus.FAILED;
 
 
         try {
@@ -75,7 +78,6 @@ public class walletService {
 
             status = TransactionStatus.COMPLETED;
         } catch (Exception e) {
-            status = TransactionStatus.FAILED;
             log.error("Error while funding wallet", e);
 
         }
@@ -93,7 +95,7 @@ public class walletService {
                         wallet.getUpdatedAt()
                 )
         );
-        return WalletMapper.toDto(wallet);
+        return status;
     }
 
     public TransactionStatus transferFunds(String fromWalletId, String fromUserId, String toWalletId, BigDecimal amount) {
@@ -101,8 +103,17 @@ public class walletService {
             throw new IllegalArgumentException("Cannot transfer funds to the same wallet");
         }
 
-        Wallet fromWallet = walletRepository.findById(fromWalletId).orElseThrow(() -> new IllegalArgumentException("Wallet not found"));
-        Wallet toWallet = walletRepository.findById(toWalletId).orElseThrow(() -> new IllegalArgumentException("Wallet not found"));
+        // deterministic order lock to avoid deadlocks
+        String firstId = fromWalletId.compareTo(toWalletId) < 0 ? fromWalletId : toWalletId;
+        String secondId = fromWalletId.compareTo(toWalletId) < 0 ? toWalletId : fromWalletId;
+
+        Wallet first = walletRepository.findByIdForUpdate(firstId)
+                .orElseThrow(() -> new IllegalArgumentException("Wallet not found"));
+        Wallet second = walletRepository.findByIdForUpdate(secondId)
+                .orElseThrow(() -> new IllegalArgumentException("Wallet not found"));
+
+        Wallet fromWallet = fromWalletId.equals(firstId) ? first : second;
+        Wallet toWallet = fromWalletId.equals(firstId) ? second : first;
 
         Wallet_transactions transactionsFrom = new Wallet_transactions();
         transactionsFrom.setWallet(fromWallet);
@@ -128,7 +139,6 @@ public class walletService {
                 status = TransactionStatus.COMPLETED;
 
             } catch (Exception e) {
-                status = TransactionStatus.FAILED;
                 log.error("Fund transfer error", e);
             }
 
@@ -138,7 +148,7 @@ public class walletService {
 
             kafkaProducer.sendEvent(
                     new WalletEventRequest(
-                            (status == TransactionStatus.COMPLETED) ? EventTypes.WALLET_FUNDED : EventTypes.WALLET_FUNDING_FAILED,
+                            (status == TransactionStatus.COMPLETED) ? EventTypes.TRANSFER_COMPLETED : EventTypes.TRANSFER_FAILED,
                             fromWalletId,
                             fromUserId,
                             amount,

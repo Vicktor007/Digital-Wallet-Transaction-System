@@ -7,4 +7,8 @@ import java.util.List;
 
 public interface TransactionEventsRepository extends JpaRepository<Transaction_events, String> {
     List<Transaction_events> findByWalletId(String walletId);
+
+    List<Transaction_events> findByUserId(String userId);
+
+    boolean existsByTransaction_id(String transactionId);
 }

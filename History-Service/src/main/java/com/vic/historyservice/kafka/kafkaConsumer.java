@@ -24,9 +24,13 @@ public class kafkaConsumer {
         this.jsonMapper = jsonMapper;
     }
 
-    @KafkaListener(topics = "wallet_event_topic")
+    @KafkaListener(topics = "wallet_event_topic", groupId = "wallet_events")
     public void consumeWalletCreationEventNotification(WalletEvent walletEvent) throws JsonProcessingException {
         log.info("Consuming wallet event notification :: {}", walletEvent.toString());
+
+        if (transactionEventsRepository.existsByTransaction_id(walletEvent.transactionId())){
+            return;
+        }
 
        Transaction_events newTransactionEvents = new  Transaction_events();
        newTransactionEvents.setEvent_type(walletEvent.eventType());
