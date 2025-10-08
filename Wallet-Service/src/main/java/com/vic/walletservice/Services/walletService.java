@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Objects;
 
 import static java.lang.Math.max;
 import static java.lang.Math.min;
@@ -74,18 +75,18 @@ public class walletService {
 
         TransactionStatus status = TransactionStatus.FAILED;
 
+        if (Objects.equals(userId, wallet.getUser_id())) {
+            try {
+                wallet.setBalance(wallet.getBalance().add(amount));
 
-        try {
-            wallet.setBalance(wallet.getBalance().add(amount));
+                walletRepository.save(wallet);
 
-            walletRepository.save(wallet);
+                status = TransactionStatus.COMPLETED;
+            } catch (Exception e) {
+                log.error("Error while funding wallet", e);
 
-            status = TransactionStatus.COMPLETED;
-        } catch (Exception e) {
-            log.error("Error while funding wallet", e);
-
+            }
         }
-
         transactions.setStatus(status);
         transactionsRepository.save(transactions);
 
@@ -188,7 +189,7 @@ public class walletService {
         return status;
     }
 
-    public BigDecimal getBalance(String fromWalletId, String fromUserId) {
+    public BigDecimal getBalance(String fromWalletId) {
         Wallet wallet = walletRepository.findById(fromWalletId).orElseThrow(() -> new IllegalArgumentException("Wallet not found"));
 
         return wallet.getBalance();
