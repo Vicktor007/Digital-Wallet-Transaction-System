@@ -11,6 +11,8 @@ public record WalletEventRequest(
         String walletId,
         String userId,
         BigDecimal amount,
+        String senderId,
+        String receiverId,
         String transactionId,
         LocalDateTime timeStamp
 ) {}

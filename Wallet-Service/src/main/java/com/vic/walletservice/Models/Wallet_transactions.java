@@ -32,6 +32,12 @@ public class Wallet_transactions {
     @Column(nullable = false)
     private TransactionType type;
 
+    @Column(nullable = false)
+    private String senderId;
+
+    @Column(nullable = false)
+    private String receiverId;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private TransactionStatus status;
@@ -70,6 +76,22 @@ public class Wallet_transactions {
 
     public void setType(TransactionType type) {
         this.type = type;
+    }
+
+    public String getSenderId() {
+        return senderId;
+    }
+
+    public void setSenderId(String senderId) {
+        this.senderId = senderId;
+    }
+
+    public String getReceiverId() {
+        return receiverId;
+    }
+
+    public void setReceiverId(String receiverId) {
+        this.receiverId = receiverId;
     }
 
     public TransactionStatus getStatus() {

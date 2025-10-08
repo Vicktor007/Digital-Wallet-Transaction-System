@@ -14,6 +14,7 @@ import com.vic.walletservice.Repositories.WalletRepository;
 import com.vic.walletservice.Repositories.Wallet_Transactions_Repository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -30,25 +31,26 @@ public class walletService {
     private final KafkaProducer kafkaProducer;
 
     private final Logger log = LoggerFactory.getLogger(walletService.class);
-    private final Wallet_Transactions_Repository wallet_Transactions_Repository;
 
-    public walletService(WalletRepository walletRepository, Wallet_Transactions_Repository transactionsRepository, KafkaProducer kafkaProducer, Wallet_Transactions_Repository wallet_Transactions_Repository) {
+
+    public walletService(WalletRepository walletRepository, Wallet_Transactions_Repository transactionsRepository, KafkaProducer kafkaProducer) {
         this.walletRepository = walletRepository;
         this.transactionsRepository = transactionsRepository;
 
         this.kafkaProducer = kafkaProducer;
-        this.wallet_Transactions_Repository = wallet_Transactions_Repository;
     }
 
     public WalletResponse createWallet(CreateWalletRequest createWalletRequest) {
         Wallet newWallet = walletRepository.save(WalletMapper.toModel(createWalletRequest));
 
-        kafkaProducer.sendEvent(
+        sendKafkaEvent(
                 new WalletEventRequest(
                         EventTypes.WALLET_CREATED,
                         newWallet.getId(),
                         createWalletRequest.userId(),
                         newWallet.getBalance(),
+                        "",
+                        "",
                         "",
                         newWallet.getCreatedAt()
                 )
@@ -66,6 +68,8 @@ public class walletService {
         Wallet_transactions transactions = new Wallet_transactions();
         transactions.setWallet(wallet);
         transactions.setAmount(amount);
+        transactions.setSenderId(walletId);
+        transactions.setSenderId(walletId);
         transactions.setType(TransactionType.FUND);
 
         TransactionStatus status = TransactionStatus.FAILED;
@@ -85,12 +89,14 @@ public class walletService {
         transactions.setStatus(status);
         transactionsRepository.save(transactions);
 
-        kafkaProducer.sendEvent(
+        sendKafkaEvent(
                 new WalletEventRequest(
                         (status == TransactionStatus.COMPLETED) ? EventTypes.WALLET_FUNDED : EventTypes.WALLET_FUNDING_FAILED,
                         walletId,
                         userId,
                         amount,
+                        walletId,
+                        walletId,
                         transactions.getId(),
                         wallet.getUpdatedAt()
                 )
@@ -118,11 +124,15 @@ public class walletService {
         Wallet_transactions transactionsFrom = new Wallet_transactions();
         transactionsFrom.setWallet(fromWallet);
         transactionsFrom.setAmount(amount);
+        transactionsFrom.setSenderId(fromWalletId);
+        transactionsFrom.setReceiverId(toWalletId);
         transactionsFrom.setType(TransactionType.TRANSFER_OUT);
 
         Wallet_transactions transactionTo = new Wallet_transactions();
         transactionTo.setWallet(toWallet);
         transactionTo.setAmount(amount);
+        transactionTo.setSenderId(fromWalletId);
+        transactionTo.setReceiverId(toWalletId);
         transactionTo.setType(TransactionType.TRANSFER_IN);
 
 
@@ -146,12 +156,14 @@ public class walletService {
             transactionsFrom.setStatus(status);
             transactionsRepository.save(transactionsFrom);
 
-            kafkaProducer.sendEvent(
+            sendKafkaEvent(
                     new WalletEventRequest(
                             (status == TransactionStatus.COMPLETED) ? EventTypes.TRANSFER_COMPLETED : EventTypes.TRANSFER_FAILED,
                             fromWalletId,
                             fromUserId,
                             amount,
+                            fromWalletId,
+                            toWalletId,
                             transactionsFrom.getId(),
                             fromWallet.getUpdatedAt()
                     )
@@ -159,12 +171,14 @@ public class walletService {
             transactionTo.setStatus(status);
             transactionsRepository.save(transactionTo);
 
-            kafkaProducer.sendEvent(
+            sendKafkaEvent(
                     new WalletEventRequest(
                             (status == TransactionStatus.COMPLETED) ? EventTypes.TRANSFER_COMPLETED : EventTypes.TRANSFER_FAILED,
                             toWalletId,
                             toWallet.getUser_id(),
                             amount,
+                            fromWalletId,
+                            toWalletId,
                             transactionTo.getId(),
                             toWallet.getUpdatedAt()
                     )
@@ -182,5 +196,15 @@ public class walletService {
 
     public List<Wallet> getUserWallets(String userId) {
       return walletRepository.findByUserId(userId);
+    }
+
+    @Async
+    public void sendKafkaEvent(WalletEventRequest walletEventRequest) {
+        try {
+            kafkaProducer.sendEvent(walletEventRequest);
+            log.info("Sent event asynchronously {}", walletEventRequest);
+        } catch (Exception e) {
+            log.error("Error while sending event asynchronously {}", walletEventRequest, e);
+        }
     }
 }

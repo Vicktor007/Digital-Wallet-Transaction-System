@@ -4,11 +4,8 @@ import com.vic.walletservice.Dtos.WalletEventRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.kafka.core.KafkaTemplate;
-import org.springframework.messaging.Message;
-import org.springframework.messaging.support.MessageBuilder;
+import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Service;
-
-import static org.springframework.kafka.support.KafkaHeaders.TOPIC;
 
 @Service
 public class KafkaProducer {
@@ -27,12 +24,5 @@ public class KafkaProducer {
         kafkaTemplate.send("wallet_event_topic", walletEventRequest);
     }
 
-//    public void sendTransactionEvent(WalletTransactionEventRequest transactionEventRequest) {
-//        logger.info("Sending event with body {}", transactionEventRequest);
-//        Message <WalletTransactionEventRequest> message = MessageBuilder.withPayload(transactionEventRequest)
-//                .setHeader(TOPIC, "wallet_transaction_event_topic")
-//                .build();
-//
-//        kafkaTemplate.send(message);
-//    }
+
 }
