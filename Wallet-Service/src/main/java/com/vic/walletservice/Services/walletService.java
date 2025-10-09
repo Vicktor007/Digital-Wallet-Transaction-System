@@ -69,7 +69,7 @@ public class walletService {
         Wallet_transactions transactions = new Wallet_transactions();
         transactions.setWallet(wallet);
         transactions.setAmount(amount);
-        transactions.setSenderId(walletId);
+        transactions.setReceiverId(walletId);
         transactions.setSenderId(walletId);
         transactions.setType(TransactionType.FUND);
 
