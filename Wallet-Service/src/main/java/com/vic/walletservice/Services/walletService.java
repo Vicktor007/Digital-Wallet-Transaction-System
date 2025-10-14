@@ -1,8 +1,7 @@
 package com.vic.walletservice.Services;
 
-import com.vic.walletservice.Dtos.CreateWalletRequest;
-import com.vic.walletservice.Dtos.WalletResponse;
-import com.vic.walletservice.Dtos.WalletEventRequest;
+
+import com.vic.walletservice.Dtos.WalletEvent;
 import com.vic.walletservice.Enums.EventTypes;
 import com.vic.walletservice.Enums.TransactionStatus;
 import com.vic.walletservice.Enums.TransactionType;
@@ -21,8 +20,7 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Objects;
 
-import static java.lang.Math.max;
-import static java.lang.Math.min;
+
 
 @Service
 public class walletService {
@@ -41,23 +39,31 @@ public class walletService {
         this.kafkaProducer = kafkaProducer;
     }
 
-    public WalletResponse createWallet(CreateWalletRequest createWalletRequest) {
-        Wallet newWallet = walletRepository.save(WalletMapper.toModel(createWalletRequest));
+    public String createWallet(String userId) {
+
+        if (userId == null || userId.isEmpty()) {
+            throw new IllegalArgumentException("userId is required");
+        }
+
+        Wallet newWallet = WalletMapper.toModel(userId);
+
+
+        Wallet savedWallet = walletRepository.save(newWallet);
 
         sendKafkaEvent(
-                new WalletEventRequest(
+                new WalletEvent(
                         EventTypes.WALLET_CREATED,
-                        newWallet.getId(),
-                        createWalletRequest.userId(),
-                        newWallet.getBalance(),
+                        savedWallet.getId(),
+                        userId,
+                        savedWallet.getBalance(),
                         "",
                         "",
                         "",
-                        newWallet.getCreatedAt()
+                        savedWallet.getCreatedAt()
                 )
         );
 
-        return WalletMapper.toDto(newWallet);
+        return savedWallet.getId();
 
     }
 
@@ -75,7 +81,7 @@ public class walletService {
 
         TransactionStatus status = TransactionStatus.FAILED;
 
-        if (Objects.equals(userId, wallet.getUser_id())) {
+        if (Objects.equals(userId, wallet.getUserId())) {
             try {
                 wallet.setBalance(wallet.getBalance().add(amount));
 
@@ -91,7 +97,7 @@ public class walletService {
         transactionsRepository.save(transactions);
 
         sendKafkaEvent(
-                new WalletEventRequest(
+                new WalletEvent(
                         (status == TransactionStatus.COMPLETED) ? EventTypes.WALLET_FUNDED : EventTypes.WALLET_FUNDING_FAILED,
                         walletId,
                         userId,
@@ -158,7 +164,7 @@ public class walletService {
             transactionsRepository.save(transactionsFrom);
 
             sendKafkaEvent(
-                    new WalletEventRequest(
+                    new WalletEvent(
                             (status == TransactionStatus.COMPLETED) ? EventTypes.TRANSFER_COMPLETED : EventTypes.TRANSFER_FAILED,
                             fromWalletId,
                             fromUserId,
@@ -173,10 +179,10 @@ public class walletService {
             transactionsRepository.save(transactionTo);
 
             sendKafkaEvent(
-                    new WalletEventRequest(
+                    new WalletEvent(
                             (status == TransactionStatus.COMPLETED) ? EventTypes.TRANSFER_COMPLETED : EventTypes.TRANSFER_FAILED,
                             toWalletId,
-                            toWallet.getUser_id(),
+                            toWallet.getUserId(),
                             amount,
                             fromWalletId,
                             toWalletId,
@@ -200,7 +206,7 @@ public class walletService {
     }
 
     @Async
-    public void sendKafkaEvent(WalletEventRequest walletEventRequest) {
+    public void sendKafkaEvent(WalletEvent walletEventRequest) {
         try {
             kafkaProducer.sendEvent(walletEventRequest);
             log.info("Sent event asynchronously {}", walletEventRequest);

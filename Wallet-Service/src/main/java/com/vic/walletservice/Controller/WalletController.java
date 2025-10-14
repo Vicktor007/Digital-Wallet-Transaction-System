@@ -63,8 +63,8 @@ public class WalletController {
             }
     )
     @PostMapping("/wallets")
-    public ResponseEntity<WalletResponse> createWallet(@RequestBody CreateWalletRequest wallet) {
-        WalletResponse walletResponse = walletService.createWallet(wallet);
+    public ResponseEntity<String> createWallet(@RequestBody String userId) {
+        String walletResponse = walletService.createWallet(userId);
         return ResponseEntity.ok(walletResponse);
     }
 

@@ -2,7 +2,6 @@ package com.vic.historyservice.kafka;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.vic.historyservice.Dtos.WalletEvent;
-import com.vic.historyservice.Mapper.JsonMapper;
 import com.vic.historyservice.Models.Transaction_events;
 import com.vic.historyservice.Repository.TransactionEventsRepository;
 import org.slf4j.Logger;
@@ -12,6 +11,8 @@ import org.springframework.kafka.support.Acknowledgment;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+
 @Service
 public class kafkaConsumer {
 
@@ -19,11 +20,9 @@ public class kafkaConsumer {
 
     private final TransactionEventsRepository transactionEventsRepository;
 
-    private final JsonMapper jsonMapper;
 
-    public kafkaConsumer(TransactionEventsRepository transactionEventsRepository, JsonMapper jsonMapper) {
+    public kafkaConsumer(TransactionEventsRepository transactionEventsRepository) {
         this.transactionEventsRepository = transactionEventsRepository;
-        this.jsonMapper = jsonMapper;
     }
 
     @KafkaListener(topics = "wallet_event_topic", groupId = "wallet_events")
@@ -34,7 +33,7 @@ public class kafkaConsumer {
             log.info("Consuming wallet event notification :: {}", walletEvent.toString());
 
             // checking for idempotency
-            if (transactionEventsRepository.existsByTransaction_id(walletEvent.transactionId())) {
+            if (transactionEventsRepository.existsByTransactionId(walletEvent.transactionId())) {
                 log.info("Wallet event already exists :: {}", walletEvent.transactionId());
                 acknowledgment.acknowledge();
                 return;
@@ -42,11 +41,12 @@ public class kafkaConsumer {
 
             Transaction_events newTransactionEvents = new Transaction_events();
             newTransactionEvents.setEvent_type(walletEvent.eventType());
-            newTransactionEvents.setWallet_id(walletEvent.walletId());
-            newTransactionEvents.setUser_id(walletEvent.userId());
+            newTransactionEvents.setWalletId(walletEvent.walletId());
+            newTransactionEvents.setUserId(walletEvent.userId());
             newTransactionEvents.setAmount(walletEvent.amount());
-            newTransactionEvents.setTransaction_id(walletEvent.transactionId());
-            newTransactionEvents.setEventData(jsonMapper.toJson(walletEvent));
+            newTransactionEvents.setTransactionId(walletEvent.transactionId());
+            newTransactionEvents.setEventData(walletEvent);
+            newTransactionEvents.setCreatedAt(LocalDateTime.now());
 
             transactionEventsRepository.save(newTransactionEvents);
 

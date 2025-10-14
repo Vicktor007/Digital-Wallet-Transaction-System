@@ -2,8 +2,10 @@ package com.vic.historyservice.Models;
 
 
 import com.vic.historyservice.Enums.EventTypes;
+import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
+import org.hibernate.annotations.Type;
 import org.hibernate.annotations.UuidGenerator;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -22,11 +24,11 @@ public class Transaction_events {
     @Column(length = 36, nullable = false, updatable = false)
     private String id;
 
-    @Column(length = 36, nullable = false)
-    private String wallet_id;
+    @Column(name = "wallet_id", length = 36, nullable = false)
+    private String walletId;
 
-    @Column(length = 100, nullable = false)
-    private String user_id;
+    @Column(name = "user_id", length = 100, nullable = false)
+    private String userId;
 
     @Column(precision = 19, scale = 4, nullable = false)
     private BigDecimal amount;
@@ -35,15 +37,16 @@ public class Transaction_events {
     @Column(length = 30, nullable = false)
     private EventTypes event_type;
 
-    @Column(length = 36)
-    private String transaction_id;
+    @Column(length = 36, name = "transaction_id")
+    private String transactionId;
 
     @CreatedDate
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
+    @Type(JsonBinaryType.class)
     @Column(columnDefinition = "jsonb", name = "event_data")
-    private String eventData;
+    private Object eventData;
 
     public Transaction_events() {
     }
@@ -56,20 +59,20 @@ public class Transaction_events {
         this.id = id;
     }
 
-    public String getWallet_id() {
-        return wallet_id;
+    public String getWalletId() {
+        return walletId;
     }
 
-    public void setWallet_id(String wallet_id) {
-        this.wallet_id = wallet_id;
+    public void setWalletId(String walletId) {
+        this.walletId = walletId;
     }
 
-    public String getUser_id() {
-        return user_id;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setUser_id(String user_id) {
-        this.user_id = user_id;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public BigDecimal getAmount() {
@@ -88,12 +91,12 @@ public class Transaction_events {
         this.event_type = event_type;
     }
 
-    public String getTransaction_id() {
-        return transaction_id;
+    public String getTransactionId() {
+        return transactionId;
     }
 
-    public void setTransaction_id(String transaction_id) {
-        this.transaction_id = transaction_id;
+    public void setTransactionId(String transaction_id) {
+        this.transactionId = transactionId;
     }
 
     public LocalDateTime getCreatedAt() {
@@ -104,11 +107,11 @@ public class Transaction_events {
         this.createdAt = createdAt;
     }
 
-    public String getEventData() {
+    public Object getEventData() {
         return eventData;
     }
 
-    public void setEventData(String eventData) {
+    public void setEventData(Object eventData) {
         this.eventData = eventData;
     }
 }

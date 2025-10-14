@@ -37,7 +37,7 @@ public class HistoryController {
                                             [
                                               {
                                                 "id": "tx-event-001",
-                                                "wallet_id": "wallet-123",
+                                                "walletId": "wallet-123",
                                                 "user_id": "user-456",
                                                 "amount": 100.00,
                                                 "event_type": "DEPOSIT",
@@ -47,7 +47,7 @@ public class HistoryController {
                                               },
                                               {
                                                 "id": "tx-event-002",
-                                                "wallet_id": "wallet-123",
+                                                "walletId": "wallet-123",
                                                 "user_id": "user-456",
                                                 "amount": 25.00,
                                                 "event_type": "TRANSFER_OUT",
@@ -77,7 +77,7 @@ public class HistoryController {
                                             [
                                               {
                                                 "id": "tx-event-010",
-                                                "wallet_id": "wallet-001",
+                                                "walletId": "wallet-001",
                                                 "user_id": "user-456",
                                                 "amount": 50.00,
                                                 "event_type": "TRANSFER_IN",
@@ -87,7 +87,7 @@ public class HistoryController {
                                               },
                                               {
                                                 "id": "tx-event-011",
-                                                "wallet_id": "wallet-002",
+                                                "walletId": "wallet-002",
                                                 "user_id": "user-456",
                                                 "amount": 10.00,
                                                 "event_type": "WITHDRAWAL",

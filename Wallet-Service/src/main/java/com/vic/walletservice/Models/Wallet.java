@@ -20,8 +20,8 @@ public class Wallet {
     private String id;
 
 
-    @Column(length = 100, nullable = false, unique = true)
-    private String user_id;
+    @Column(name ="user_id", length = 100, nullable = false, unique = true)
+    private String userId;
 
     @Column(precision = 19, scale = 4, nullable = false)
     private BigDecimal balance = BigDecimal.ZERO;
@@ -46,12 +46,12 @@ public class Wallet {
         this.id = id;
     }
 
-    public String getUser_id() {
-        return user_id;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setUser_id(String user_id) {
-        this.user_id = user_id;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public BigDecimal getBalance() {

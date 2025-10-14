@@ -32,10 +32,11 @@ public class Wallet_transactions {
     @Column(nullable = false)
     private TransactionType type;
 
-    @Column(nullable = false)
+
+    @Column(length = 100)
     private String senderId;
 
-    @Column(nullable = false)
+    @Column(length = 100)
     private String receiverId;
 
     @Enumerated(EnumType.STRING)

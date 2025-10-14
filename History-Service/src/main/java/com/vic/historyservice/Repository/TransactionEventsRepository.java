@@ -10,5 +10,5 @@ public interface TransactionEventsRepository extends JpaRepository<Transaction_e
 
     List<Transaction_events> findByUserId(String userId);
 
-    boolean existsByTransaction_id(String transactionId);
+    boolean existsByTransactionId(String transactionId);
 }
