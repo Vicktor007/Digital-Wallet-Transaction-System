@@ -43,7 +43,15 @@ public class HistoryController {
                                                 "event_type": "DEPOSIT",
                                                 "transaction_id": "tx-111",
                                                 "createdAt": "2025-10-09T15:32:00",
-                                                "eventData": "{ \\"source\\": \\"BANK_TRANSFER\\", \\"note\\": \\"Initial deposit\\" }"
+                                                "eventData":
+                                                 "{
+                                                "walletId": "wallet-123",
+                                                "user_id": "user-456",
+                                                "amount": 100.00,
+                                                "event_type": "DEPOSIT",
+                                                "transaction_id": "tx-111",
+                                                "createdAt": "2025-10-09T15:32:00",
+                                                 }"
                                               },
                                               {
                                                 "id": "tx-event-002",
@@ -53,7 +61,16 @@ public class HistoryController {
                                                 "event_type": "TRANSFER_OUT",
                                                 "transaction_id": "tx-222",
                                                 "createdAt": "2025-10-09T16:45:00",
-                                                "eventData": "{ \\"destinationWallet\\": \\"wallet-789\\" }"
+                                                "eventData": "{
+                                            
+                                                 "walletId": "wallet-123",
+                                                "user_id": "user-456",
+                                                "amount": 25.00,
+                                                "event_type": "TRANSFER_OUT",
+                                                "transaction_id": "tx-222",
+                                                "createdAt": "2025-10-09T16:45:00",
+                                            
+                                                 }"
                                               }
                                             ]
                                             """))),
@@ -83,7 +100,16 @@ public class HistoryController {
                                                 "event_type": "TRANSFER_IN",
                                                 "transaction_id": "tx-333",
                                                 "createdAt": "2025-10-09T18:00:00",
-                                                "eventData": "{ \\"fromWallet\\": \\"wallet-789\\", \\"note\\": \\"Payment received\\" }"
+                                                "eventData": "{
+                                            
+                                                 "walletId": "wallet-001",
+                                                "user_id": "user-456",
+                                                "amount": 50.00,
+                                                "event_type": "TRANSFER_IN",
+                                                "transaction_id": "tx-333",
+                                                "createdAt": "2025-10-09T18:00:00",
+                                            
+                                                 }"
                                               },
                                               {
                                                 "id": "tx-event-011",
@@ -93,7 +119,16 @@ public class HistoryController {
                                                 "event_type": "WITHDRAWAL",
                                                 "transaction_id": "tx-444",
                                                 "createdAt": "2025-10-09T18:30:00",
-                                                "eventData": "{ \\"method\\": \\"ATM\\", \\"location\\": \\"Downtown branch\\" }"
+                                                "eventData": "{
+                                            
+                                                 "walletId": "wallet-002",
+                                                "user_id": "user-456",
+                                                "amount": 10.00,
+                                                "event_type": "WITHDRAWAL",
+                                                "transaction_id": "tx-444",
+                                                "createdAt": "2025-10-09T18:30:00",
+                                            
+                                                 }"
                                               }
                                             ]
                                             """))),

@@ -39,7 +39,7 @@ public class WalletController {
                     required = true,
                     description = "Wallet creation details",
                     content = @Content(
-                            schema = @Schema(implementation = CreateWalletRequest.class),
+
                             examples = @ExampleObject(value = """
                                     {
                                       "userId": "12345"
@@ -50,16 +50,13 @@ public class WalletController {
             ),
             responses = {
                     @ApiResponse(responseCode = "200", description = "Wallet created successfully",
-                            content = @Content(schema = @Schema(implementation = WalletResponse.class),
+                            content = @Content(schema = @Schema(implementation = TransactionStatus.class),
                                     examples = @ExampleObject(value = """
                                             {
-                                              "walletId": "wallet-001",
-                                              "userId": "12345",
-                                              "currency": "USD",
-                                              "balance": 0.00
+                                              "COMPLETED"
                                             }
                                             """))),
-                    @ApiResponse(responseCode = "400", description = "Invalid input data", content = @Content)
+                    @ApiResponse(responseCode = "400", description = "FAILED", content = @Content)
             }
     )
     @PostMapping("/wallets")
@@ -77,18 +74,14 @@ public class WalletController {
                     description = "Funding details",
                     content = @Content(
                             schema = @Schema(implementation = FundWalletRequest.class),
-                            examples = @ExampleObject(value = """
-                                    {
-                                      "userId": "12345",
-                                      "amount": 100.50
-                                    }
-                                    """)
+                            examples = @ExampleObject(value = "\"COMPLETED\""
+                                    )
                     )
             ),
             responses = {
                     @ApiResponse(responseCode = "200", description = "Wallet funded successfully",
                             content = @Content(schema = @Schema(implementation = TransactionStatus.class),
-                                    examples = @ExampleObject(value = "\"SUCCESS\""))),
+                                    examples = @ExampleObject(value = "\"COMPLETED\""))),
                     @ApiResponse(responseCode = "404", description = "Wallet not found", content = @Content)
             }
     )
@@ -126,7 +119,7 @@ public class WalletController {
             responses = {
                     @ApiResponse(responseCode = "200", description = "Transfer successful",
                             content = @Content(schema = @Schema(implementation = TransactionStatus.class),
-                                    examples = @ExampleObject(value = "\"SUCCESS\""))),
+                                    examples = @ExampleObject(value = "\"COMPLETED\""))),
                     @ApiResponse(responseCode = "400", description = "Insufficient balance or invalid request", content = @Content)
             }
     )

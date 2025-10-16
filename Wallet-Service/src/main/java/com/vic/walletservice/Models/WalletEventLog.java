@@ -17,18 +17,28 @@ public class WalletEventLog {
     @Enumerated(EnumType.STRING)
     private EventTypes eventType;
 
+    @Column(length = 100)
     private String walletId;
+
+    @Column(length = 100)
     private String userId;
+
     private BigDecimal amount;
+
+    @Column(length = 100)
     private String senderId;
+
+    @Column(length = 100)
     private String receiverId;
+
+    @Column(length = 100)
     private String transactionId;
+
     private LocalDateTime timeStamp;
 
     private boolean sent = false;
 
     private int retryCount = 0;
-
 
 
     private LocalDateTime createdAt = LocalDateTime.now();
