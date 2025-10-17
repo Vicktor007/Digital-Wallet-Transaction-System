@@ -124,7 +124,7 @@ public class WalletController {
             }
     )
     @PostMapping("/wallets/{walletId}/transfer")
-    public ResponseEntity<TransactionStatus> transferWallet(
+    public ResponseEntity<TransactionStatus> transferFundsBetweenWallets(
             @PathVariable String walletId,
             @RequestBody TransferRequest transferRequest
     ) {
