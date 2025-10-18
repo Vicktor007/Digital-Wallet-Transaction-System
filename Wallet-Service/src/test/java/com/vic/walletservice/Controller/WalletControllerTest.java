@@ -28,7 +28,8 @@ class WalletControllerTest extends AbstractIT {
         // 1️⃣ Create a new wallet for user
         String walletId =
                 given()
-                        .baseUri(userId)
+                        .contentType(ContentType.JSON)
+                        .body(userId)
                         .when()
                         .post("/api/wallets")
                         .then()

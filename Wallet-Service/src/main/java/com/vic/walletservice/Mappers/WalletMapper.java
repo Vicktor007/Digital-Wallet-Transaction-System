@@ -25,7 +25,6 @@ public class WalletMapper {
         Wallet wallet = new Wallet();
         wallet.setUserId(userId);
         wallet.setBalance(BigDecimal.ZERO);
-        wallet.setVersion(wallet.getVersion() + 1);
         wallet.setCreatedAt(LocalDateTime.now());
         wallet.setUpdatedAt(LocalDateTime.now());
         return wallet;

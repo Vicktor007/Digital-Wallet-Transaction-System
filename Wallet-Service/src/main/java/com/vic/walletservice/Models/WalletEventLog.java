@@ -2,6 +2,7 @@ package com.vic.walletservice.Models;
 
 import com.vic.walletservice.Dtos.WalletEvent;
 import com.vic.walletservice.Enums.EventTypes;
+import com.vic.walletservice.Enums.TransactionType;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
@@ -34,6 +35,11 @@ public class WalletEventLog {
     @Column(length = 100)
     private String transactionId;
 
+    @Enumerated(EnumType.STRING)
+    @Column(length = 30, nullable = false)
+    private TransactionType  transactionType;
+
+
     private LocalDateTime timeStamp;
 
     private boolean sent = false;
@@ -52,6 +58,7 @@ public class WalletEventLog {
                 senderId,
                 receiverId,
                 transactionId,
+                transactionType,
                 timeStamp
         );}
 

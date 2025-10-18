@@ -45,6 +45,7 @@ public class kafkaConsumer {
             newTransactionEvents.setUserId(walletEvent.userId());
             newTransactionEvents.setAmount(walletEvent.amount());
             newTransactionEvents.setTransactionId(walletEvent.transactionId());
+            newTransactionEvents.setTransactionType(walletEvent.transactionType());
             newTransactionEvents.setEventData(walletEvent);
             newTransactionEvents.setCreatedAt(LocalDateTime.now());
 

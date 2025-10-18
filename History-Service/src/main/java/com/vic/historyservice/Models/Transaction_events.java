@@ -2,6 +2,7 @@ package com.vic.historyservice.Models;
 
 
 import com.vic.historyservice.Enums.EventTypes;
+import com.vic.historyservice.Enums.TransactionType;
 import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
@@ -39,6 +40,11 @@ public class Transaction_events {
 
     @Column(length = 36, name = "transaction_id")
     private String transactionId;
+
+    @Enumerated(EnumType.STRING)
+    @Column(length = 30, nullable = false)
+    private TransactionType transactionType;
+
 
     @CreatedDate
     @Column(name = "created_at", nullable = false, updatable = false)
@@ -95,8 +101,16 @@ public class Transaction_events {
         return transactionId;
     }
 
-    public void setTransactionId(String transaction_id) {
+    public void setTransactionId(String transactionId) {
         this.transactionId = transactionId;
+    }
+
+    public TransactionType getTransactionType() {
+        return transactionType;
+    }
+
+    public void setTransactionType(TransactionType transactionType) {
+        this.transactionType = transactionType;
     }
 
     public LocalDateTime getCreatedAt() {

@@ -47,6 +47,12 @@ public class Wallet_transactions {
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
+    public Wallet_transactions() {
+    }
+
+    public Wallet_transactions(Wallet from, BigDecimal amount, String s, String s1, TransactionType transactionType, TransactionStatus transactionStatus) {
+    }
+
     public String getId() {
         return id;
     }

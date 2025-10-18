@@ -11,12 +11,16 @@ import com.vic.walletservice.Models.Wallet;
 import com.vic.walletservice.Models.Wallet_transactions;
 import com.vic.walletservice.Repositories.WalletRepository;
 import com.vic.walletservice.Repositories.Wallet_Transactions_Repository;
+import jakarta.persistence.OptimisticLockException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
@@ -59,6 +63,7 @@ public class walletService {
                         "",
                         "",
                         "",
+                        TransactionType.valueOf(""),
                         savedWallet.getCreatedAt()
                 )
         );
@@ -77,6 +82,7 @@ public class walletService {
         transactions.setAmount(amount);
         transactions.setReceiverId(walletId);
         transactions.setSenderId(walletId);
+        transactions.setCreatedAt(LocalDateTime.now());
         transactions.setType(TransactionType.FUND);
 
         TransactionStatus status = TransactionStatus.FAILED;
@@ -94,7 +100,7 @@ public class walletService {
             }
         }
         transactions.setStatus(status);
-        transactionsRepository.save(transactions);
+       Wallet_transactions savedTransaction = transactionsRepository.save(transactions);
 
         sendKafkaEvent(
                 new WalletEvent(
@@ -104,7 +110,8 @@ public class walletService {
                         amount,
                         walletId,
                         walletId,
-                        transactions.getId(),
+                        savedTransaction.getId(),
+                        savedTransaction.getType(),
                         wallet.getUpdatedAt()
                 )
         );
@@ -133,6 +140,7 @@ public class walletService {
         transactionsFrom.setAmount(amount);
         transactionsFrom.setSenderId(fromWalletId);
         transactionsFrom.setReceiverId(toWalletId);
+        transactionsFrom.setCreatedAt(LocalDateTime.now());
         transactionsFrom.setType(TransactionType.TRANSFER_OUT);
 
         Wallet_transactions transactionTo = new Wallet_transactions();
@@ -140,6 +148,7 @@ public class walletService {
         transactionTo.setAmount(amount);
         transactionTo.setSenderId(fromWalletId);
         transactionTo.setReceiverId(toWalletId);
+        transactionTo.setCreatedAt(LocalDateTime.now());
         transactionTo.setType(TransactionType.TRANSFER_IN);
 
 
@@ -172,6 +181,7 @@ public class walletService {
                             fromWalletId,
                             toWalletId,
                             transactionsFrom.getId(),
+                            transactionsFrom.getType(),
                             fromWallet.getUpdatedAt()
                     )
             );
@@ -187,6 +197,7 @@ public class walletService {
                             fromWalletId,
                             toWalletId,
                             transactionTo.getId(),
+                            transactionTo.getType(),
                             toWallet.getUpdatedAt()
                     )
             );

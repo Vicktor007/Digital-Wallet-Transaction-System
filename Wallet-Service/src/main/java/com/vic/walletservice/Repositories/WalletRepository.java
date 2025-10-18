@@ -13,7 +13,6 @@ import java.util.Optional;
 public interface WalletRepository extends JpaRepository<Wallet, String> {
     List<Wallet> findByUserId(String userId);
 
-    @Lock(LockModeType.PESSIMISTIC_WRITE)
     @Query("SELECT w FROM Wallet w WHERE w.id = :id")
     Optional<Wallet> findByIdForUpdate(@Param("id") String id);
 

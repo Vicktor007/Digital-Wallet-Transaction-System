@@ -6,7 +6,7 @@ __consumer_offsets 0 0
 __consumer_offsets 6 0
 __consumer_offsets 35 0
 __consumer_offsets 30 0
-wallet_event_topic 1 0
+wallet_event_topic 1 10
 __consumer_offsets 13 0
 __consumer_offsets 26 0
 __consumer_offsets 21 0
@@ -23,7 +23,7 @@ __consumer_offsets 40 0
 __consumer_offsets 27 0
 __consumer_offsets 17 0
 __consumer_offsets 32 0
-__consumer_offsets 39 40
+__consumer_offsets 39 67
 __consumer_offsets 2 0
 __consumer_offsets 44 0
 __consumer_offsets 12 0
@@ -45,7 +45,7 @@ __consumer_offsets 28 0
 __consumer_offsets 4 0
 __consumer_offsets 31 0
 __consumer_offsets 5 0
-wallet_event_topic 0 6
+wallet_event_topic 0 11
 __consumer_offsets 1 0
 __consumer_offsets 15 0
 __consumer_offsets 38 0

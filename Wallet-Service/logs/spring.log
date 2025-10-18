@@ -1,0 +1,443 @@
+2025-10-18T13:34:45.149+01:00  INFO 892 --- [Wallet-Service] [main] c.v.w.Controller.WalletControllerTest    : Starting WalletControllerTest using Java 21.0.6 with PID 892 (started by vickt in C:\Users\vickt\Desktop\Digital_Wallet_Transaction_System\Wallet-Service)
+2025-10-18T13:34:45.153+01:00  INFO 892 --- [Wallet-Service] [main] c.v.w.Controller.WalletControllerTest    : No active profile set, falling back to 1 default profile: "default"
+2025-10-18T13:34:47.473+01:00  INFO 892 --- [Wallet-Service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-10-18T13:34:47.608+01:00  INFO 892 --- [Wallet-Service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 109 ms. Found 3 JPA repository interfaces.
+2025-10-18T13:34:49.488+01:00  INFO 892 --- [Wallet-Service] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 0 (http)
+2025-10-18T13:34:49.542+01:00  INFO 892 --- [Wallet-Service] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-10-18T13:34:49.542+01:00  INFO 892 --- [Wallet-Service] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.46]
+2025-10-18T13:34:49.744+01:00  INFO 892 --- [Wallet-Service] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-10-18T13:34:49.744+01:00  INFO 892 --- [Wallet-Service] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 4112 ms
+2025-10-18T13:34:50.343+01:00  INFO 892 --- [Wallet-Service] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-10-18T13:34:50.779+01:00  INFO 892 --- [Wallet-Service] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@7ce4498f
+2025-10-18T13:34:50.783+01:00  INFO 892 --- [Wallet-Service] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-10-18T13:34:50.859+01:00  INFO 892 --- [Wallet-Service] [main] org.flywaydb.core.FlywayExecutor         : Database: jdbc:postgresql://localhost:54302/walletdb?loggerLevel=OFF (PostgreSQL 16.10)
+2025-10-18T13:34:50.996+01:00  INFO 892 --- [Wallet-Service] [main] o.f.c.i.s.JdbcTableSchemaHistory         : Schema history table "public"."flyway_schema_history" does not exist yet
+2025-10-18T13:34:51.006+01:00  INFO 892 --- [Wallet-Service] [main] o.f.core.internal.command.DbValidate     : Successfully validated 3 migrations (execution time 00:00.060s)
+2025-10-18T13:34:51.057+01:00  INFO 892 --- [Wallet-Service] [main] o.f.c.i.s.JdbcTableSchemaHistory         : Creating Schema History table "public"."flyway_schema_history" ...
+2025-10-18T13:34:51.173+01:00  INFO 892 --- [Wallet-Service] [main] o.f.core.internal.command.DbMigrate      : Current version of schema "public": << Empty Schema >>
+2025-10-18T13:34:51.197+01:00  INFO 892 --- [Wallet-Service] [main] o.f.core.internal.command.DbMigrate      : Migrating schema "public" to version "1 - create tables"
+2025-10-18T13:34:51.303+01:00  INFO 892 --- [Wallet-Service] [main] o.f.core.internal.command.DbMigrate      : Migrating schema "public" to version "2 - edit"
+2025-10-18T13:34:51.361+01:00  INFO 892 --- [Wallet-Service] [main] o.f.core.internal.command.DbMigrate      : Migrating schema "public" to version "3 - newEdit"
+2025-10-18T13:34:51.416+01:00  INFO 892 --- [Wallet-Service] [main] o.f.core.internal.command.DbMigrate      : Successfully applied 3 migrations to schema "public", now at version v3 (execution time 00:00.082s)
+2025-10-18T13:34:51.679+01:00  INFO 892 --- [Wallet-Service] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-10-18T13:34:51.856+01:00  INFO 892 --- [Wallet-Service] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.29.Final
+2025-10-18T13:34:51.973+01:00  INFO 892 --- [Wallet-Service] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-10-18T13:34:52.777+01:00  INFO 892 --- [Wallet-Service] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-10-18T13:34:52.995+01:00  INFO 892 --- [Wallet-Service] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 16.10
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-10-18T13:34:55.997+01:00  INFO 892 --- [Wallet-Service] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-10-18T13:34:55.999+01:00  INFO 892 --- [Wallet-Service] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-10-18T13:34:56.708+01:00  INFO 892 --- [Wallet-Service] [main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-10-18T13:34:59.636+01:00  INFO 892 --- [Wallet-Service] [main] o.a.k.clients.admin.AdminClientConfig    : AdminClientConfig values: 
+	auto.include.jmx.reporter = true
+	bootstrap.controllers = []
+	bootstrap.servers = [localhost:54303]
+	client.dns.lookup = use_all_dns_ips
+	client.id = Wallet-Service-admin-0
+	connections.max.idle.ms = 300000
+	default.api.timeout.ms = 60000
+	enable.metrics.push = true
+	metadata.max.age.ms = 300000
+	metadata.recovery.strategy = none
+	metric.reporters = []
+	metrics.num.samples = 2
+	metrics.recording.level = INFO
+	metrics.sample.window.ms = 30000
+	receive.buffer.bytes = 65536
+	reconnect.backoff.max.ms = 1000
+	reconnect.backoff.ms = 50
+	request.timeout.ms = 30000
+	retries = 2147483647
+	retry.backoff.max.ms = 1000
+	retry.backoff.ms = 100
+	sasl.client.callback.handler.class = null
+	sasl.jaas.config = null
+	sasl.kerberos.kinit.cmd = /usr/bin/kinit
+	sasl.kerberos.min.time.before.relogin = 60000
+	sasl.kerberos.service.name = null
+	sasl.kerberos.ticket.renew.jitter = 0.05
+	sasl.kerberos.ticket.renew.window.factor = 0.8
+	sasl.login.callback.handler.class = null
+	sasl.login.class = null
+	sasl.login.connect.timeout.ms = null
+	sasl.login.read.timeout.ms = null
+	sasl.login.refresh.buffer.seconds = 300
+	sasl.login.refresh.min.period.seconds = 60
+	sasl.login.refresh.window.factor = 0.8
+	sasl.login.refresh.window.jitter = 0.05
+	sasl.login.retry.backoff.max.ms = 10000
+	sasl.login.retry.backoff.ms = 100
+	sasl.mechanism = GSSAPI
+	sasl.oauthbearer.clock.skew.seconds = 30
+	sasl.oauthbearer.expected.audience = null
+	sasl.oauthbearer.expected.issuer = null
+	sasl.oauthbearer.header.urlencode = false
+	sasl.oauthbearer.jwks.endpoint.refresh.ms = 3600000
+	sasl.oauthbearer.jwks.endpoint.retry.backoff.max.ms = 10000
+	sasl.oauthbearer.jwks.endpoint.retry.backoff.ms = 100
+	sasl.oauthbearer.jwks.endpoint.url = null
+	sasl.oauthbearer.scope.claim.name = scope
+	sasl.oauthbearer.sub.claim.name = sub
+	sasl.oauthbearer.token.endpoint.url = null
+	security.protocol = PLAINTEXT
+	security.providers = null
+	send.buffer.bytes = 131072
+	socket.connection.setup.timeout.max.ms = 30000
+	socket.connection.setup.timeout.ms = 10000
+	ssl.cipher.suites = null
+	ssl.enabled.protocols = [TLSv1.2, TLSv1.3]
+	ssl.endpoint.identification.algorithm = https
+	ssl.engine.factory.class = null
+	ssl.key.password = null
+	ssl.keymanager.algorithm = SunX509
+	ssl.keystore.certificate.chain = null
+	ssl.keystore.key = null
+	ssl.keystore.location = null
+	ssl.keystore.password = null
+	ssl.keystore.type = JKS
+	ssl.protocol = TLSv1.3
+	ssl.provider = null
+	ssl.secure.random.implementation = null
+	ssl.trustmanager.algorithm = PKIX
+	ssl.truststore.certificates = null
+	ssl.truststore.location = null
+	ssl.truststore.password = null
+	ssl.truststore.type = JKS
+
+2025-10-18T13:34:59.831+01:00  INFO 892 --- [Wallet-Service] [main] o.a.kafka.common.utils.AppInfoParser     : Kafka version: 3.9.1
+2025-10-18T13:34:59.834+01:00  INFO 892 --- [Wallet-Service] [main] o.a.kafka.common.utils.AppInfoParser     : Kafka commitId: f745dfdcee2b9851
+2025-10-18T13:34:59.834+01:00  INFO 892 --- [Wallet-Service] [main] o.a.kafka.common.utils.AppInfoParser     : Kafka startTimeMs: 1760790899829
+2025-10-18T13:35:01.358+01:00  INFO 892 --- [Wallet-Service] [kafka-admin-client-thread | Wallet-Service-admin-0] o.a.kafka.common.utils.AppInfoParser     : App info kafka.admin.client for Wallet-Service-admin-0 unregistered
+2025-10-18T13:35:01.369+01:00  INFO 892 --- [Wallet-Service] [kafka-admin-client-thread | Wallet-Service-admin-0] o.apache.kafka.common.metrics.Metrics    : Metrics scheduler closed
+2025-10-18T13:35:01.370+01:00  INFO 892 --- [Wallet-Service] [kafka-admin-client-thread | Wallet-Service-admin-0] o.apache.kafka.common.metrics.Metrics    : Closing reporter org.apache.kafka.common.metrics.JmxReporter
+2025-10-18T13:35:01.370+01:00  INFO 892 --- [Wallet-Service] [kafka-admin-client-thread | Wallet-Service-admin-0] o.apache.kafka.common.metrics.Metrics    : Metrics reporters closed
+2025-10-18T13:35:01.449+01:00  INFO 892 --- [Wallet-Service] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 54318 (http) with context path '/'
+2025-10-18T13:35:01.490+01:00  INFO 892 --- [Wallet-Service] [main] c.v.w.Controller.WalletControllerTest    : Started WalletControllerTest in 17.246 seconds (process running for 83.057)
+2025-10-18T13:35:04.994+01:00  INFO 892 --- [Wallet-Service] [http-nio-auto-1-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-10-18T13:35:04.994+01:00  INFO 892 --- [Wallet-Service] [http-nio-auto-1-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-10-18T13:35:05.001+01:00  INFO 892 --- [Wallet-Service] [http-nio-auto-1-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 7 ms
+2025-10-18T13:35:05.379+01:00  INFO 892 --- [Wallet-Service] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2025-10-18T13:35:05.395+01:00  INFO 892 --- [Wallet-Service] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2025-10-18T13:35:05.410+01:00  INFO 892 --- [Wallet-Service] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-10-18T13:35:05.413+01:00  INFO 892 --- [Wallet-Service] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-10-18T13:35:05.429+01:00  INFO 892 --- [Wallet-Service] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2025-10-18T13:47:58.703+01:00  INFO 8304 --- [Wallet-Service] [main] c.v.w.Controller.WalletControllerTest    : Starting WalletControllerTest using Java 21.0.6 with PID 8304 (started by vickt in C:\Users\vickt\Desktop\Digital_Wallet_Transaction_System\Wallet-Service)
+2025-10-18T13:47:58.708+01:00  INFO 8304 --- [Wallet-Service] [main] c.v.w.Controller.WalletControllerTest    : No active profile set, falling back to 1 default profile: "default"
+2025-10-18T13:48:02.301+01:00  INFO 8304 --- [Wallet-Service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-10-18T13:48:02.529+01:00  INFO 8304 --- [Wallet-Service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 201 ms. Found 3 JPA repository interfaces.
+2025-10-18T13:48:04.711+01:00  INFO 8304 --- [Wallet-Service] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 0 (http)
+2025-10-18T13:48:04.768+01:00  INFO 8304 --- [Wallet-Service] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-10-18T13:48:04.770+01:00  INFO 8304 --- [Wallet-Service] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.46]
+2025-10-18T13:48:05.086+01:00  INFO 8304 --- [Wallet-Service] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-10-18T13:48:05.087+01:00  INFO 8304 --- [Wallet-Service] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 5356 ms
+2025-10-18T13:48:06.038+01:00  INFO 8304 --- [Wallet-Service] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-10-18T13:48:06.965+01:00  INFO 8304 --- [Wallet-Service] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@4eec5fa6
+2025-10-18T13:48:06.969+01:00  INFO 8304 --- [Wallet-Service] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-10-18T13:48:07.077+01:00  INFO 8304 --- [Wallet-Service] [main] org.flywaydb.core.FlywayExecutor         : Database: jdbc:postgresql://localhost:62030/walletdb?loggerLevel=OFF (PostgreSQL 16.10)
+2025-10-18T13:48:07.284+01:00  INFO 8304 --- [Wallet-Service] [main] o.f.c.i.s.JdbcTableSchemaHistory         : Schema history table "public"."flyway_schema_history" does not exist yet
+2025-10-18T13:48:07.297+01:00  INFO 8304 --- [Wallet-Service] [main] o.f.core.internal.command.DbValidate     : Successfully validated 3 migrations (execution time 00:00.103s)
+2025-10-18T13:48:07.358+01:00  INFO 8304 --- [Wallet-Service] [main] o.f.c.i.s.JdbcTableSchemaHistory         : Creating Schema History table "public"."flyway_schema_history" ...
+2025-10-18T13:48:07.609+01:00  INFO 8304 --- [Wallet-Service] [main] o.f.core.internal.command.DbMigrate      : Current version of schema "public": << Empty Schema >>
+2025-10-18T13:48:07.685+01:00  INFO 8304 --- [Wallet-Service] [main] o.f.core.internal.command.DbMigrate      : Migrating schema "public" to version "1 - create tables"
+2025-10-18T13:48:08.080+01:00  INFO 8304 --- [Wallet-Service] [main] o.f.core.internal.command.DbMigrate      : Migrating schema "public" to version "2 - edit"
+2025-10-18T13:48:08.184+01:00  INFO 8304 --- [Wallet-Service] [main] o.f.core.internal.command.DbMigrate      : Migrating schema "public" to version "3 - newEdit"
+2025-10-18T13:48:08.271+01:00  INFO 8304 --- [Wallet-Service] [main] o.f.core.internal.command.DbMigrate      : Successfully applied 3 migrations to schema "public", now at version v3 (execution time 00:00.249s)
+2025-10-18T13:48:08.775+01:00  INFO 8304 --- [Wallet-Service] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-10-18T13:48:09.189+01:00  INFO 8304 --- [Wallet-Service] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.29.Final
+2025-10-18T13:48:09.404+01:00  INFO 8304 --- [Wallet-Service] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-10-18T13:48:10.813+01:00  INFO 8304 --- [Wallet-Service] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-10-18T13:48:11.088+01:00  INFO 8304 --- [Wallet-Service] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 16.10
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-10-18T13:48:14.818+01:00  INFO 8304 --- [Wallet-Service] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-10-18T13:48:14.826+01:00  INFO 8304 --- [Wallet-Service] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-10-18T13:48:15.688+01:00  INFO 8304 --- [Wallet-Service] [main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-10-18T13:48:20.543+01:00  INFO 8304 --- [Wallet-Service] [main] o.a.k.clients.admin.AdminClientConfig    : AdminClientConfig values: 
+	auto.include.jmx.reporter = true
+	bootstrap.controllers = []
+	bootstrap.servers = [localhost:62038]
+	client.dns.lookup = use_all_dns_ips
+	client.id = Wallet-Service-admin-0
+	connections.max.idle.ms = 300000
+	default.api.timeout.ms = 60000
+	enable.metrics.push = true
+	metadata.max.age.ms = 300000
+	metadata.recovery.strategy = none
+	metric.reporters = []
+	metrics.num.samples = 2
+	metrics.recording.level = INFO
+	metrics.sample.window.ms = 30000
+	receive.buffer.bytes = 65536
+	reconnect.backoff.max.ms = 1000
+	reconnect.backoff.ms = 50
+	request.timeout.ms = 30000
+	retries = 2147483647
+	retry.backoff.max.ms = 1000
+	retry.backoff.ms = 100
+	sasl.client.callback.handler.class = null
+	sasl.jaas.config = null
+	sasl.kerberos.kinit.cmd = /usr/bin/kinit
+	sasl.kerberos.min.time.before.relogin = 60000
+	sasl.kerberos.service.name = null
+	sasl.kerberos.ticket.renew.jitter = 0.05
+	sasl.kerberos.ticket.renew.window.factor = 0.8
+	sasl.login.callback.handler.class = null
+	sasl.login.class = null
+	sasl.login.connect.timeout.ms = null
+	sasl.login.read.timeout.ms = null
+	sasl.login.refresh.buffer.seconds = 300
+	sasl.login.refresh.min.period.seconds = 60
+	sasl.login.refresh.window.factor = 0.8
+	sasl.login.refresh.window.jitter = 0.05
+	sasl.login.retry.backoff.max.ms = 10000
+	sasl.login.retry.backoff.ms = 100
+	sasl.mechanism = GSSAPI
+	sasl.oauthbearer.clock.skew.seconds = 30
+	sasl.oauthbearer.expected.audience = null
+	sasl.oauthbearer.expected.issuer = null
+	sasl.oauthbearer.header.urlencode = false
+	sasl.oauthbearer.jwks.endpoint.refresh.ms = 3600000
+	sasl.oauthbearer.jwks.endpoint.retry.backoff.max.ms = 10000
+	sasl.oauthbearer.jwks.endpoint.retry.backoff.ms = 100
+	sasl.oauthbearer.jwks.endpoint.url = null
+	sasl.oauthbearer.scope.claim.name = scope
+	sasl.oauthbearer.sub.claim.name = sub
+	sasl.oauthbearer.token.endpoint.url = null
+	security.protocol = PLAINTEXT
+	security.providers = null
+	send.buffer.bytes = 131072
+	socket.connection.setup.timeout.max.ms = 30000
+	socket.connection.setup.timeout.ms = 10000
+	ssl.cipher.suites = null
+	ssl.enabled.protocols = [TLSv1.2, TLSv1.3]
+	ssl.endpoint.identification.algorithm = https
+	ssl.engine.factory.class = null
+	ssl.key.password = null
+	ssl.keymanager.algorithm = SunX509
+	ssl.keystore.certificate.chain = null
+	ssl.keystore.key = null
+	ssl.keystore.location = null
+	ssl.keystore.password = null
+	ssl.keystore.type = JKS
+	ssl.protocol = TLSv1.3
+	ssl.provider = null
+	ssl.secure.random.implementation = null
+	ssl.trustmanager.algorithm = PKIX
+	ssl.truststore.certificates = null
+	ssl.truststore.location = null
+	ssl.truststore.password = null
+	ssl.truststore.type = JKS
+
+2025-10-18T13:48:20.798+01:00  INFO 8304 --- [Wallet-Service] [main] o.a.kafka.common.utils.AppInfoParser     : Kafka version: 3.9.1
+2025-10-18T13:48:20.799+01:00  INFO 8304 --- [Wallet-Service] [main] o.a.kafka.common.utils.AppInfoParser     : Kafka commitId: f745dfdcee2b9851
+2025-10-18T13:48:20.799+01:00  INFO 8304 --- [Wallet-Service] [main] o.a.kafka.common.utils.AppInfoParser     : Kafka startTimeMs: 1760791700793
+2025-10-18T13:48:23.423+01:00  INFO 8304 --- [Wallet-Service] [kafka-admin-client-thread | Wallet-Service-admin-0] o.a.kafka.common.utils.AppInfoParser     : App info kafka.admin.client for Wallet-Service-admin-0 unregistered
+2025-10-18T13:48:23.445+01:00  INFO 8304 --- [Wallet-Service] [kafka-admin-client-thread | Wallet-Service-admin-0] o.apache.kafka.common.metrics.Metrics    : Metrics scheduler closed
+2025-10-18T13:48:23.446+01:00  INFO 8304 --- [Wallet-Service] [kafka-admin-client-thread | Wallet-Service-admin-0] o.apache.kafka.common.metrics.Metrics    : Closing reporter org.apache.kafka.common.metrics.JmxReporter
+2025-10-18T13:48:23.452+01:00  INFO 8304 --- [Wallet-Service] [kafka-admin-client-thread | Wallet-Service-admin-0] o.apache.kafka.common.metrics.Metrics    : Metrics reporters closed
+2025-10-18T13:48:23.544+01:00  INFO 8304 --- [Wallet-Service] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 50378 (http) with context path '/'
+2025-10-18T13:48:23.751+01:00  INFO 8304 --- [Wallet-Service] [main] c.v.w.Controller.WalletControllerTest    : Started WalletControllerTest in 26.76 seconds (process running for 73.179)
+2025-10-18T13:48:29.324+01:00  INFO 8304 --- [Wallet-Service] [http-nio-auto-1-exec-3] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-10-18T13:48:29.325+01:00  INFO 8304 --- [Wallet-Service] [http-nio-auto-1-exec-3] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-10-18T13:48:29.328+01:00  INFO 8304 --- [Wallet-Service] [http-nio-auto-1-exec-3] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2025-10-18T13:48:30.060+01:00 ERROR 8304 --- [Wallet-Service] [http-nio-auto-1-exec-4] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: java.lang.IllegalArgumentException: userId is required] with root cause
+
+java.lang.IllegalArgumentException: userId is required
+	at com.vic.walletservice.Services.walletService.createWallet(walletService.java:45) ~[classes/:na]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:360) ~[spring-aop-6.2.11.jar:6.2.11]
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:724) ~[spring-aop-6.2.11.jar:6.2.11]
+	at com.vic.walletservice.Services.walletService$$SpringCGLIB$$0.createWallet(<generated>) ~[classes/:na]
+	at com.vic.walletservice.Controller.WalletController.createWallet(WalletController.java:64) ~[classes/:na]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:258) ~[spring-web-6.2.11.jar:6.2.11]
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:191) ~[spring-web-6.2.11.jar:6.2.11]
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118) ~[spring-webmvc-6.2.11.jar:6.2.11]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:991) ~[spring-webmvc-6.2.11.jar:6.2.11]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:896) ~[spring-webmvc-6.2.11.jar:6.2.11]
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87) ~[spring-webmvc-6.2.11.jar:6.2.11]
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089) ~[spring-webmvc-6.2.11.jar:6.2.11]
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979) ~[spring-webmvc-6.2.11.jar:6.2.11]
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014) ~[spring-webmvc-6.2.11.jar:6.2.11]
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:914) ~[spring-webmvc-6.2.11.jar:6.2.11]
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:590) ~[tomcat-embed-core-10.1.46.jar:6.0]
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885) ~[spring-webmvc-6.2.11.jar:6.2.11]
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658) ~[tomcat-embed-core-10.1.46.jar:6.0]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:195) ~[tomcat-embed-core-10.1.46.jar:10.1.46]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.46.jar:10.1.46]
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51) ~[tomcat-embed-websocket-10.1.46.jar:10.1.46]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.46.jar:10.1.46]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.46.jar:10.1.46]
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[spring-web-6.2.11.jar:6.2.11]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.11.jar:6.2.11]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.46.jar:10.1.46]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.46.jar:10.1.46]
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[spring-web-6.2.11.jar:6.2.11]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.11.jar:6.2.11]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.46.jar:10.1.46]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.46.jar:10.1.46]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) ~[spring-web-6.2.11.jar:6.2.11]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.11.jar:6.2.11]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.46.jar:10.1.46]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.46.jar:10.1.46]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167) ~[tomcat-embed-core-10.1.46.jar:10.1.46]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90) ~[tomcat-embed-core-10.1.46.jar:10.1.46]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:483) ~[tomcat-embed-core-10.1.46.jar:10.1.46]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:116) ~[tomcat-embed-core-10.1.46.jar:10.1.46]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93) ~[tomcat-embed-core-10.1.46.jar:10.1.46]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74) ~[tomcat-embed-core-10.1.46.jar:10.1.46]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344) ~[tomcat-embed-core-10.1.46.jar:10.1.46]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:398) ~[tomcat-embed-core-10.1.46.jar:10.1.46]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63) ~[tomcat-embed-core-10.1.46.jar:10.1.46]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:903) ~[tomcat-embed-core-10.1.46.jar:10.1.46]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1776) ~[tomcat-embed-core-10.1.46.jar:10.1.46]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52) ~[tomcat-embed-core-10.1.46.jar:10.1.46]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:975) ~[tomcat-embed-core-10.1.46.jar:10.1.46]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:493) ~[tomcat-embed-core-10.1.46.jar:10.1.46]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63) ~[tomcat-embed-core-10.1.46.jar:10.1.46]
+	at java.base/java.lang.Thread.run(Thread.java:1583) ~[na:na]
+
+2025-10-18T13:48:30.118+01:00  INFO 8304 --- [Wallet-Service] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2025-10-18T13:48:30.138+01:00  INFO 8304 --- [Wallet-Service] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2025-10-18T13:48:30.151+01:00  INFO 8304 --- [Wallet-Service] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-10-18T13:48:30.156+01:00  INFO 8304 --- [Wallet-Service] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-10-18T13:48:30.172+01:00  INFO 8304 --- [Wallet-Service] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2025-10-18T13:50:53.583+01:00  INFO 14432 --- [Wallet-Service] [main] c.v.w.Controller.WalletControllerTest    : Starting WalletControllerTest using Java 21.0.6 with PID 14432 (started by vickt in C:\Users\vickt\Desktop\Digital_Wallet_Transaction_System\Wallet-Service)
+2025-10-18T13:50:53.585+01:00  INFO 14432 --- [Wallet-Service] [main] c.v.w.Controller.WalletControllerTest    : No active profile set, falling back to 1 default profile: "default"
+2025-10-18T13:50:55.769+01:00  INFO 14432 --- [Wallet-Service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-10-18T13:50:55.934+01:00  INFO 14432 --- [Wallet-Service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 138 ms. Found 3 JPA repository interfaces.
+2025-10-18T13:50:57.570+01:00  INFO 14432 --- [Wallet-Service] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 0 (http)
+2025-10-18T13:50:57.603+01:00  INFO 14432 --- [Wallet-Service] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-10-18T13:50:57.604+01:00  INFO 14432 --- [Wallet-Service] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.46]
+2025-10-18T13:50:57.782+01:00  INFO 14432 --- [Wallet-Service] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-10-18T13:50:57.782+01:00  INFO 14432 --- [Wallet-Service] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 3745 ms
+2025-10-18T13:50:58.464+01:00  INFO 14432 --- [Wallet-Service] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-10-18T13:50:59.036+01:00  INFO 14432 --- [Wallet-Service] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@5a4e492c
+2025-10-18T13:50:59.042+01:00  INFO 14432 --- [Wallet-Service] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-10-18T13:50:59.140+01:00  INFO 14432 --- [Wallet-Service] [main] org.flywaydb.core.FlywayExecutor         : Database: jdbc:postgresql://localhost:50412/walletdb?loggerLevel=OFF (PostgreSQL 16.10)
+2025-10-18T13:50:59.250+01:00  INFO 14432 --- [Wallet-Service] [main] o.f.c.i.s.JdbcTableSchemaHistory         : Schema history table "public"."flyway_schema_history" does not exist yet
+2025-10-18T13:50:59.260+01:00  INFO 14432 --- [Wallet-Service] [main] o.f.core.internal.command.DbValidate     : Successfully validated 3 migrations (execution time 00:00.053s)
+2025-10-18T13:50:59.302+01:00  INFO 14432 --- [Wallet-Service] [main] o.f.c.i.s.JdbcTableSchemaHistory         : Creating Schema History table "public"."flyway_schema_history" ...
+2025-10-18T13:50:59.415+01:00  INFO 14432 --- [Wallet-Service] [main] o.f.core.internal.command.DbMigrate      : Current version of schema "public": << Empty Schema >>
+2025-10-18T13:50:59.437+01:00  INFO 14432 --- [Wallet-Service] [main] o.f.core.internal.command.DbMigrate      : Migrating schema "public" to version "1 - create tables"
+2025-10-18T13:50:59.540+01:00  INFO 14432 --- [Wallet-Service] [main] o.f.core.internal.command.DbMigrate      : Migrating schema "public" to version "2 - edit"
+2025-10-18T13:50:59.607+01:00  INFO 14432 --- [Wallet-Service] [main] o.f.core.internal.command.DbMigrate      : Migrating schema "public" to version "3 - newEdit"
+2025-10-18T13:50:59.662+01:00  INFO 14432 --- [Wallet-Service] [main] o.f.core.internal.command.DbMigrate      : Successfully applied 3 migrations to schema "public", now at version v3 (execution time 00:00.085s)
+2025-10-18T13:50:59.902+01:00  INFO 14432 --- [Wallet-Service] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-10-18T13:51:00.067+01:00  INFO 14432 --- [Wallet-Service] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.29.Final
+2025-10-18T13:51:00.181+01:00  INFO 14432 --- [Wallet-Service] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-10-18T13:51:00.971+01:00  INFO 14432 --- [Wallet-Service] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-10-18T13:51:01.226+01:00  INFO 14432 --- [Wallet-Service] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 16.10
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-10-18T13:51:04.164+01:00  INFO 14432 --- [Wallet-Service] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-10-18T13:51:04.171+01:00  INFO 14432 --- [Wallet-Service] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-10-18T13:51:04.858+01:00  INFO 14432 --- [Wallet-Service] [main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-10-18T13:51:07.921+01:00  INFO 14432 --- [Wallet-Service] [main] o.a.k.clients.admin.AdminClientConfig    : AdminClientConfig values: 
+	auto.include.jmx.reporter = true
+	bootstrap.controllers = []
+	bootstrap.servers = [localhost:50414]
+	client.dns.lookup = use_all_dns_ips
+	client.id = Wallet-Service-admin-0
+	connections.max.idle.ms = 300000
+	default.api.timeout.ms = 60000
+	enable.metrics.push = true
+	metadata.max.age.ms = 300000
+	metadata.recovery.strategy = none
+	metric.reporters = []
+	metrics.num.samples = 2
+	metrics.recording.level = INFO
+	metrics.sample.window.ms = 30000
+	receive.buffer.bytes = 65536
+	reconnect.backoff.max.ms = 1000
+	reconnect.backoff.ms = 50
+	request.timeout.ms = 30000
+	retries = 2147483647
+	retry.backoff.max.ms = 1000
+	retry.backoff.ms = 100
+	sasl.client.callback.handler.class = null
+	sasl.jaas.config = null
+	sasl.kerberos.kinit.cmd = /usr/bin/kinit
+	sasl.kerberos.min.time.before.relogin = 60000
+	sasl.kerberos.service.name = null
+	sasl.kerberos.ticket.renew.jitter = 0.05
+	sasl.kerberos.ticket.renew.window.factor = 0.8
+	sasl.login.callback.handler.class = null
+	sasl.login.class = null
+	sasl.login.connect.timeout.ms = null
+	sasl.login.read.timeout.ms = null
+	sasl.login.refresh.buffer.seconds = 300
+	sasl.login.refresh.min.period.seconds = 60
+	sasl.login.refresh.window.factor = 0.8
+	sasl.login.refresh.window.jitter = 0.05
+	sasl.login.retry.backoff.max.ms = 10000
+	sasl.login.retry.backoff.ms = 100
+	sasl.mechanism = GSSAPI
+	sasl.oauthbearer.clock.skew.seconds = 30
+	sasl.oauthbearer.expected.audience = null
+	sasl.oauthbearer.expected.issuer = null
+	sasl.oauthbearer.header.urlencode = false
+	sasl.oauthbearer.jwks.endpoint.refresh.ms = 3600000
+	sasl.oauthbearer.jwks.endpoint.retry.backoff.max.ms = 10000
+	sasl.oauthbearer.jwks.endpoint.retry.backoff.ms = 100
+	sasl.oauthbearer.jwks.endpoint.url = null
+	sasl.oauthbearer.scope.claim.name = scope
+	sasl.oauthbearer.sub.claim.name = sub
+	sasl.oauthbearer.token.endpoint.url = null
+	security.protocol = PLAINTEXT
+	security.providers = null
+	send.buffer.bytes = 131072
+	socket.connection.setup.timeout.max.ms = 30000
+	socket.connection.setup.timeout.ms = 10000
+	ssl.cipher.suites = null
+	ssl.enabled.protocols = [TLSv1.2, TLSv1.3]
+	ssl.endpoint.identification.algorithm = https
+	ssl.engine.factory.class = null
+	ssl.key.password = null
+	ssl.keymanager.algorithm = SunX509
+	ssl.keystore.certificate.chain = null
+	ssl.keystore.key = null
+	ssl.keystore.location = null
+	ssl.keystore.password = null
+	ssl.keystore.type = JKS
+	ssl.protocol = TLSv1.3
+	ssl.provider = null
+	ssl.secure.random.implementation = null
+	ssl.trustmanager.algorithm = PKIX
+	ssl.truststore.certificates = null
+	ssl.truststore.location = null
+	ssl.truststore.password = null
+	ssl.truststore.type = JKS
+
+2025-10-18T13:51:08.152+01:00  INFO 14432 --- [Wallet-Service] [main] o.a.kafka.common.utils.AppInfoParser     : Kafka version: 3.9.1
+2025-10-18T13:51:08.153+01:00  INFO 14432 --- [Wallet-Service] [main] o.a.kafka.common.utils.AppInfoParser     : Kafka commitId: f745dfdcee2b9851
+2025-10-18T13:51:08.153+01:00  INFO 14432 --- [Wallet-Service] [main] o.a.kafka.common.utils.AppInfoParser     : Kafka startTimeMs: 1760791868147
+2025-10-18T13:51:09.682+01:00  INFO 14432 --- [Wallet-Service] [kafka-admin-client-thread | Wallet-Service-admin-0] o.a.kafka.common.utils.AppInfoParser     : App info kafka.admin.client for Wallet-Service-admin-0 unregistered
+2025-10-18T13:51:09.697+01:00  INFO 14432 --- [Wallet-Service] [kafka-admin-client-thread | Wallet-Service-admin-0] o.apache.kafka.common.metrics.Metrics    : Metrics scheduler closed
+2025-10-18T13:51:09.698+01:00  INFO 14432 --- [Wallet-Service] [kafka-admin-client-thread | Wallet-Service-admin-0] o.apache.kafka.common.metrics.Metrics    : Closing reporter org.apache.kafka.common.metrics.JmxReporter
+2025-10-18T13:51:09.699+01:00  INFO 14432 --- [Wallet-Service] [kafka-admin-client-thread | Wallet-Service-admin-0] o.apache.kafka.common.metrics.Metrics    : Metrics reporters closed
+2025-10-18T13:51:09.741+01:00  INFO 14432 --- [Wallet-Service] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 50428 (http) with context path '/'
+2025-10-18T13:51:09.788+01:00  INFO 14432 --- [Wallet-Service] [main] c.v.w.Controller.WalletControllerTest    : Started WalletControllerTest in 16.697 seconds (process running for 45.448)
+2025-10-18T13:51:18.085+01:00  INFO 14432 --- [Wallet-Service] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2025-10-18T13:51:18.102+01:00  INFO 14432 --- [Wallet-Service] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2025-10-18T13:51:18.110+01:00  INFO 14432 --- [Wallet-Service] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-10-18T13:51:18.114+01:00  INFO 14432 --- [Wallet-Service] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-10-18T13:51:18.127+01:00  INFO 14432 --- [Wallet-Service] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.

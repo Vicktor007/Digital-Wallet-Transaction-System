@@ -42,7 +42,7 @@ public abstract class AbstractIT {
 
     @BeforeEach
     void setupRestAssured() {
-        RestAssured.baseURI = "http://localhost:" + port;
+        RestAssured.baseURI = "http://localhost:8080";
     }
 
 }
