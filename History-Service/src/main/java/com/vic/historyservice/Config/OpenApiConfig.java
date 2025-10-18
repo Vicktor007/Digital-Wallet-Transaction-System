@@ -24,18 +24,9 @@ public class OpenApiConfig {
                                 It allows querying all events linked to wallets and users for auditing, analytics,
                                 and transaction tracking purposes.
                                 """)
-//                        .contact(new Contact()
-//                                .name("Victor – API Support")
-//                                .email("support@vicwallet.com")
-//                                .url("https://vicwallet.com"))
-//                        .license(new License()
-//                                .name("Apache 2.0")
-//                                .url("https://www.apache.org/licenses/LICENSE-2.0.html"))
-//                        .termsOfService("https://vicwallet.com/terms"))
                 )
                 .servers(List.of(
                         new Server().url("http://localhost:8081").description("Local Development Server")
-//                        new Server().url("https://api.vicwallet.com/history").description("Production Server")
                 ));
     }
 }
