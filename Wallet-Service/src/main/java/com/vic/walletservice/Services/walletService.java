@@ -60,7 +60,7 @@ public class walletService {
                         "",
                         "",
                         "",
-                        TransactionType.valueOf(""),
+                        TransactionType.CREATE_WALLET,
                         savedWallet.getCreatedAt()
                 )
         );
@@ -70,6 +70,7 @@ public class walletService {
     }
 
     public TransactionStatus fundWallet(String walletId, String userId, BigDecimal amount) {
+
         Wallet wallet = walletRepository.findById(walletId).orElseThrow(() -> new IllegalArgumentException("Wallet not found"));
 
 
@@ -203,10 +204,10 @@ public class walletService {
         return status;
     }
 
-    public BigDecimal getBalance(String fromWalletId) {
+    public String getBalance(String fromWalletId) {
         Wallet wallet = walletRepository.findById(fromWalletId).orElseThrow(() -> new IllegalArgumentException("Wallet not found"));
 
-        return wallet.getBalance();
+        return "Available: " + wallet.getBalance();
     }
 
     public List<Wallet> getUserWallets(String userId) {

@@ -1,9 +1,8 @@
 package com.vic.walletservice.Controller;
 
-import com.vic.walletservice.Dtos.CreateWalletRequest;
+
 import com.vic.walletservice.Dtos.FundWalletRequest;
 import com.vic.walletservice.Dtos.TransferRequest;
-import com.vic.walletservice.Dtos.WalletResponse;
 import com.vic.walletservice.Enums.TransactionStatus;
 import com.vic.walletservice.Models.Wallet;
 import com.vic.walletservice.Services.walletService;
@@ -15,6 +14,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,19 +35,7 @@ public class WalletController {
     @Operation(
             summary = "Create a new wallet",
             description = "Creates a new wallet for a user based on the provided details.",
-            requestBody = @RequestBody(
-                    required = true,
-                    description = "Wallet creation details",
-                    content = @Content(
-
-                            examples = @ExampleObject(value = """
-                                    {
-                                      "userId": "12345"
-                                   
-                                    }
-                                    """)
-                    )
-            ),
+            parameters = @Parameter(name = "userId", description = "The ID of the wallet creator", required = true),
             responses = {
                     @ApiResponse(responseCode = "200", description = "Wallet created successfully",
                             content = @Content(schema = @Schema(implementation = TransactionStatus.class),
@@ -59,8 +47,8 @@ public class WalletController {
                     @ApiResponse(responseCode = "400", description = "FAILED", content = @Content)
             }
     )
-    @PostMapping("/wallets")
-    public ResponseEntity<String> createWallet(@RequestBody String userId) {
+    @PostMapping("/wallets/{userId}")
+    public ResponseEntity<String> createWallet(@PathVariable String userId) {
         String walletResponse = walletService.createWallet(userId);
         return ResponseEntity.ok(walletResponse);
     }
@@ -73,9 +61,8 @@ public class WalletController {
                     required = true,
                     description = "Funding details",
                     content = @Content(
-                            schema = @Schema(implementation = FundWalletRequest.class),
-                            examples = @ExampleObject(value = "\"COMPLETED\""
-                                    )
+                            mediaType = "application/x-www-form-urlencoded",
+                            schema = @Schema(implementation = FundWalletRequest.class)
                     )
             ),
             responses = {
@@ -88,7 +75,7 @@ public class WalletController {
     @PostMapping("/wallets/{walletId}/fund")
     public ResponseEntity<TransactionStatus> fundWallet(
             @PathVariable String walletId,
-            @RequestBody FundWalletRequest fundWalletRequest
+            @Valid @RequestBody FundWalletRequest fundWalletRequest
     ) {
         TransactionStatus status = walletService.fundWallet(
                 walletId,
@@ -106,14 +93,8 @@ public class WalletController {
                     required = true,
                     description = "Transfer details",
                     content = @Content(
-                            schema = @Schema(implementation = TransferRequest.class),
-                            examples = @ExampleObject(value = """
-                                    {
-                                      "fromUserId": "12345",
-                                      "toWalletId": "wallet-002",
-                                      "amount": 25.00
-                                    }
-                                    """)
+                            mediaType = "application/x-www-form-urlencoded",
+                            schema = @Schema(implementation = TransferRequest.class)
                     )
             ),
             responses = {
@@ -126,7 +107,7 @@ public class WalletController {
     @PostMapping("/wallets/{walletId}/transfer")
     public ResponseEntity<TransactionStatus> transferFundsBetweenWallets(
             @PathVariable String walletId,
-            @RequestBody TransferRequest transferRequest
+            @Valid @RequestBody TransferRequest transferRequest
     ) {
         TransactionStatus status = walletService.transferFunds(
                 walletId,
@@ -149,7 +130,7 @@ public class WalletController {
             }
     )
     @GetMapping("/wallets/{walletId}")
-    public ResponseEntity<BigDecimal> getWalletBalance(@PathVariable String walletId) {
+    public ResponseEntity<String> getWalletBalance(@PathVariable String walletId) {
         return ResponseEntity.ok(walletService.getBalance(walletId));
     }
 
