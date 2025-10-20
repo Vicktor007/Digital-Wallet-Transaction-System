@@ -207,7 +207,7 @@ public class walletService {
     public String getBalance(String fromWalletId) {
         Wallet wallet = walletRepository.findById(fromWalletId).orElseThrow(() -> new IllegalArgumentException("Wallet not found"));
 
-        return "Available: " + wallet.getBalance();
+        return "Available balance: " + wallet.getBalance();
     }
 
     public List<Wallet> getUserWallets(String userId) {
