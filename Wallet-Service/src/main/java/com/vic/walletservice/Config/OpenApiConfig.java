@@ -8,6 +8,11 @@ import org.springframework.context.annotation.Configuration;
 
 import java.util.List;
 
+
+/**
+ * OpenApi documentation configuration
+ */
+
 @Configuration
 public class OpenApiConfig {
 
