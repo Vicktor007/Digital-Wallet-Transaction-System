@@ -29,36 +29,40 @@ public class walletTestController extends AbstractIT {
 
         @Test
         void shouldCreateAndUseWallets() {
-            // Setup all mock behaviors
+            // Setting up all mock behaviors
             when(walletService.createWallet(userId1)).thenReturn("wallet-user1234");
+
             when(walletService.createWallet(userId2)).thenReturn("wallet-user234");
+
             when(walletService.fundWallet(anyString(), anyString(), ArgumentMatchers.any()))
                     .thenReturn(TransactionStatus.COMPLETED);
+
             when(walletService.transferFunds(anyString(), anyString(), anyString(), ArgumentMatchers.any()))
                     .thenReturn(TransactionStatus.COMPLETED);
+
             when(walletService.getBalance(anyString())).thenReturn("100.00");
             when(walletService.getUserWallets(anyString())).thenReturn(List.of());
 
-            // Test wallet creation
+            // Testing wallet creation
             String walletA = createWallet(userId1);
             String walletB = createWallet(userId2);
 
             assertThat(walletA).isEqualTo("wallet-user1234");
             assertThat(walletB).isEqualTo("wallet-user234");
 
-            // Test funding
+            // Testing funding
             TransactionStatus fundResult = shouldFundWallet(walletA, userId1, new BigDecimal("50.00"));
             assertThat(fundResult).isEqualTo(TransactionStatus.COMPLETED);
 
-            // Test transfer
+            // Testing transfer
             TransactionStatus transferResult = shouldTransferFundsBetweenWallet(walletA, userId1, walletB, new BigDecimal("25.00"));
             assertThat(transferResult).isEqualTo(TransactionStatus.COMPLETED);
 
-            // Test balance
+            // Testing balance
             String balance = shouldGetWalletBalance(walletA);
             assertThat(balance).isEqualTo("100.00");
 
-            // Test user wallets
+            // Testing user wallets
             List<Wallet> wallets = shouldGetUserWallets(userId1);
             assertThat(wallets).isEmpty(); // Since i am mocking empty list
         }

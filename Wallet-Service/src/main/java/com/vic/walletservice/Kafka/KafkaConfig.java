@@ -6,6 +6,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.config.TopicBuilder;
 
+/**
+ * this configures kafka producer for sending event messages to the history service
+ */
 
 @Configuration
 public class KafkaConfig {

@@ -5,6 +5,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+/**
+ * this allows the necessary origins to access the endpoints in the project
+ */
 @Configuration
 public class CorsConfig {
     @Bean

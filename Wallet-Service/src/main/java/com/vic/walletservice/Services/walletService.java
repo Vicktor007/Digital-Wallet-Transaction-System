@@ -5,6 +5,9 @@ import com.vic.walletservice.Dtos.WalletEvent;
 import com.vic.walletservice.Enums.EventTypes;
 import com.vic.walletservice.Enums.TransactionStatus;
 import com.vic.walletservice.Enums.TransactionType;
+import com.vic.walletservice.Exceptions.GlobalExceptionHandler;
+import com.vic.walletservice.Exceptions.UserNotFoundException;
+import com.vic.walletservice.Exceptions.WalletNotFoundException;
 import com.vic.walletservice.Kafka.KafkaProducer;
 import com.vic.walletservice.Mappers.WalletMapper;
 import com.vic.walletservice.Models.Wallet;
@@ -15,13 +18,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
-
+/**
+ * this service controls the logic of saving and fetching information
+ */
 
 @Service
 public class walletService {
@@ -40,10 +46,14 @@ public class walletService {
         this.kafkaProducer = kafkaProducer;
     }
 
+    /**
+     * this creates a new wallet with a user identification number and sends the event message eventually
+     */
+    @Transactional
     public String createWallet(String userId) {
 
         if (userId == null || userId.isEmpty()) {
-            throw new IllegalArgumentException("userId is required");
+            throw new GlobalExceptionHandler.GlobalException("userId is required");
         }
 
         Wallet newWallet = WalletMapper.toModel(userId);
@@ -69,10 +79,12 @@ public class walletService {
 
     }
 
+    /**
+     * this funds a wallet with a user identification number and walletId and sends the event message eventually whether successful or not
+     */
     public TransactionStatus fundWallet(String walletId, String userId, BigDecimal amount) {
 
-        Wallet wallet = walletRepository.findById(walletId).orElseThrow(() -> new IllegalArgumentException("Wallet not found"));
-
+        Wallet wallet = walletRepository.findById(walletId).orElseThrow(() -> new WalletNotFoundException("Wallet not found"));
 
 
         Wallet_transactions transactions = new Wallet_transactions();
@@ -116,9 +128,12 @@ public class walletService {
         return status;
     }
 
+    /**
+     * this processes funds transfer between two wallets, saves the transaction information and sends event message eventually if it was successful or not
+     */
     public TransactionStatus transferFunds(String fromWalletId, String fromUserId, String toWalletId, BigDecimal amount) {
         if (fromWalletId.equals(toWalletId)) {
-            throw new IllegalArgumentException("Cannot transfer funds to the same wallet");
+            throw new GlobalExceptionHandler.GlobalException("Cannot transfer funds to the same wallet");
         }
 
         // deterministic order lock to avoid deadlocks
@@ -126,9 +141,9 @@ public class walletService {
         String secondId = fromWalletId.compareTo(toWalletId) < 0 ? toWalletId : fromWalletId;
 
         Wallet first = walletRepository.findByIdForUpdate(firstId)
-                .orElseThrow(() -> new IllegalArgumentException("Wallet not found"));
+                .orElseThrow(() -> new WalletNotFoundException("Wallet not found"));
         Wallet second = walletRepository.findByIdForUpdate(secondId)
-                .orElseThrow(() -> new IllegalArgumentException("Wallet not found"));
+                .orElseThrow(() -> new WalletNotFoundException("Wallet not found"));
 
         Wallet fromWallet = fromWalletId.equals(firstId) ? first : second;
         Wallet toWallet = fromWalletId.equals(firstId) ? second : first;
@@ -204,16 +219,32 @@ public class walletService {
         return status;
     }
 
+    /**
+     * this gets the balance of a wallet and returns it as string
+     */
     public String getBalance(String fromWalletId) {
-        Wallet wallet = walletRepository.findById(fromWalletId).orElseThrow(() -> new IllegalArgumentException("Wallet not found"));
+        Wallet wallet = walletRepository.findById(fromWalletId).orElseThrow(() -> new  WalletNotFoundException("Wallet not found"));
 
         return "Available balance: " + wallet.getBalance();
     }
 
+    /**
+     * this gets a user's wallet or wallets if multiple wallets are found. it returns an empty list otherwise
+     */
     public List<Wallet> getUserWallets(String userId) {
-      return walletRepository.findByUserId(userId);
+        List<Wallet> userWallets = null;
+        try {
+            userWallets = walletRepository.findByUserId(userId);
+
+        } catch (UserNotFoundException e) {
+            log.error("User not found", e);
+        }
+        return userWallets;
     }
 
+    /**
+     * this processes the events by the side so as not to block main operations
+     */
     @Async
     public void sendKafkaEvent(WalletEvent walletEventRequest) {
         try {

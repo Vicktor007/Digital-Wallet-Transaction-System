@@ -1,5 +1,6 @@
 package com.vic.historyservice.Enums;
 
+
 public enum EventTypes {
 
     WALLET_CREATED,

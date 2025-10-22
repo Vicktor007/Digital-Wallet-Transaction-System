@@ -8,6 +8,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
+/**
+ * this sends the event messages to the consumer for processing
+ */
 @Service
 public class KafkaProducer {
 
@@ -37,17 +40,29 @@ public class KafkaProducer {
                 // on Failure
                 logger.error("Failed to send event with body {}", walletEventRequest, ex);
 
-                String txId = walletEventRequest.transactionId();
+                String transactionId = walletEventRequest.transactionId();
+//                 checks if transactionId is not present
+                if (transactionId != null) {
+                    if (!walletEventLogRepository.existsByTransactionId(transactionId)) {
+                        WalletEventLog logEntry = getWalletEventLog(walletEventRequest);
 
-                if (txId == null || !walletEventLogRepository.existsByTransactionId(txId)) {
-                    WalletEventLog logEntry = getWalletEventLog(walletEventRequest);
+                        walletEventLogRepository.save(logEntry);
+                        logger.info("Saved event to database due to Kafka failure: {}", logEntry);
+                    } else {
+                        logger.warn("Not saving event to database because transactionId is null");
+                    }
 
-                    walletEventLogRepository.save(logEntry);
+                } else {
+                    logger.info("Successfully sent event: {}", result);
                 }
+
             }
         });
     }
 
+    /**
+     * this saves the unsent messages to the evenlog for later processing
+     */
     private static WalletEventLog getWalletEventLog(WalletEvent walletEventRequest) {
         WalletEventLog logEntry = new WalletEventLog();
         logEntry.setEventType(walletEventRequest.eventType());

@@ -1,13 +1,14 @@
 package com.vic.walletservice.Mappers;
 
-import com.vic.walletservice.Dtos.CreateWalletRequest;
-import com.vic.walletservice.Dtos.WalletResponse;
-import com.vic.walletservice.Enums.EventTypes;
+
 import com.vic.walletservice.Models.Wallet;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+/**
+ * this ensures that the necessary details are sent to the entity to be saved
+ */
 public class WalletMapper {
 
 

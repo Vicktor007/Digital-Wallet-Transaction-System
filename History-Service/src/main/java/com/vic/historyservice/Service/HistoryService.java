@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+
+
 @Service
 public class HistoryService {
 
@@ -15,10 +17,16 @@ public class HistoryService {
         this.eventsRepository = eventsRepository;
     }
 
+    /**
+     * this fetches all activities of a particular wallet by its identity number
+     */
     public List<Transaction_events> getWalletHistory(String walletId) {
         return eventsRepository.findByWalletId(walletId);
     }
 
+    /**
+     * this fetches all activities of a particular user by its identity number
+     */
     public List<Transaction_events> getUserHistory(String userId) {
         return eventsRepository.findByUserId(userId);
     }
