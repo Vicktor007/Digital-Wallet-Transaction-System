@@ -45,7 +45,7 @@ The Wallet Service provides real-time financial operations including wallet crea
 ## 🔌 API Endpoints
 
 Wallet Service (:8080)
-POST /wallets - Create new wallet
+POST /wallets/{userId} - Create new wallet
 
 POST /wallets/{id}/fund - Add funds
 
