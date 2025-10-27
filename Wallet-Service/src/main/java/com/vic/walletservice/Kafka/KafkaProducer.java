@@ -31,17 +31,16 @@ public class KafkaProducer {
 
         var future = kafkaTemplate.send(TOPIC, walletEventRequest);
 
-        // CompletableFuture callback
         future.whenComplete((result, ex) -> {
             if (ex == null) {
-                // on Success
+
                 logger.info("Successfully sent event with body {}", walletEventRequest);
             } else {
-                // on Failure
+
                 logger.error("Failed to send event with body {}", walletEventRequest, ex);
 
                 String transactionId = walletEventRequest.transactionId();
-//                 checks if transactionId is not present
+
                 if (transactionId != null) {
                     if (!walletEventLogRepository.existsByTransactionId(transactionId)) {
                         WalletEventLog logEntry = getWalletEventLog(walletEventRequest);
@@ -61,7 +60,7 @@ public class KafkaProducer {
     }
 
     /**
-     * this saves the unsent messages to the evenlog for later processing
+     * this saves the unsent messages to the eventlog for later processing
      */
     private static WalletEventLog getWalletEventLog(WalletEvent walletEventRequest) {
         WalletEventLog logEntry = new WalletEventLog();

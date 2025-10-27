@@ -10,7 +10,7 @@ public class InvalidAmountException extends RuntimeException {
 
     public static InvalidAmountException forWallet(BigDecimal currentBalance, BigDecimal requiredAmount) {
         return new InvalidAmountException(
-                String.format("Insufficient funds in wallet %s. Current: %s, Required: %s",
+                String.format("Insufficient funds. Current: %s, Required: %s",
                         currentBalance, requiredAmount)
         );
     }

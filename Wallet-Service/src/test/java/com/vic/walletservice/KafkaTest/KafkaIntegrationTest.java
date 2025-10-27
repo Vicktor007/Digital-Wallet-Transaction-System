@@ -62,16 +62,13 @@ class KafkaProducerTest {
 
     @Test
     void shouldSendEventSuccessfully() {
-        // Given
         CompletableFuture future =
                 CompletableFuture.completedFuture(mock(SendResult.class));
 
         when(kafkaTemplate.send(anyString(), any(WalletEvent.class))).thenReturn(future);
 
-        // When
         kafkaProducer.sendEvent(testWalletEvent);
 
-        // Then
         verify(kafkaTemplate).send("wallet_event_topic", testWalletEvent);
         verify(walletEventLogRepository, never()).existsByTransactionId(anyString());
         verify(walletEventLogRepository, never()).save(any(WalletEventLog.class));
@@ -79,7 +76,6 @@ class KafkaProducerTest {
 
     @Test
     void shouldSaveToEventLog_WhenKafkaSendFails_AndTransactionDoesNotExist() {
-        // Given
         CompletableFuture<SendResult<String, WalletEvent>> future =
                 new CompletableFuture<>();
         future.completeExceptionally(new RuntimeException("Kafka broker unavailable"));
@@ -87,13 +83,10 @@ class KafkaProducerTest {
         when(kafkaTemplate.send(anyString(), any(WalletEvent.class))).thenReturn(future);
         when(walletEventLogRepository.existsByTransactionId("txn-001")).thenReturn(false);
 
-        // When
         kafkaProducer.sendEvent(testWalletEvent);
 
-        // Wait a bit for the async callback to complete
         try { Thread.sleep(100); } catch (InterruptedException e) { Thread.currentThread().interrupt(); }
 
-        // Then
         verify(kafkaTemplate).send("wallet_event_topic", testWalletEvent);
         verify(walletEventLogRepository).existsByTransactionId("txn-001");
         verify(walletEventLogRepository).save(walletEventLogCaptor.capture());
@@ -112,7 +105,6 @@ class KafkaProducerTest {
 
     @Test
     void shouldNotSaveToEventLog_WhenKafkaSendFails_ButTransactionAlreadyExists() {
-        // Given
         CompletableFuture<SendResult<String, WalletEvent>> future =
                 new CompletableFuture<>();
         future.completeExceptionally(new RuntimeException("Kafka broker unavailable"));
@@ -120,13 +112,10 @@ class KafkaProducerTest {
         when(kafkaTemplate.send(anyString(), any(WalletEvent.class))).thenReturn(future);
         when(walletEventLogRepository.existsByTransactionId("txn-001")).thenReturn(true);
 
-        // When
         kafkaProducer.sendEvent(testWalletEvent);
 
-        // Wait a bit for the async callback to complete
         try { Thread.sleep(100); } catch (InterruptedException e) { Thread.currentThread().interrupt(); }
 
-        // Then
         verify(kafkaTemplate).send("wallet_event_topic", testWalletEvent);
         verify(walletEventLogRepository).existsByTransactionId("txn-001");
         verify(walletEventLogRepository, never()).save(any(WalletEventLog.class));
@@ -134,7 +123,6 @@ class KafkaProducerTest {
 
     @Test
     void shouldNotSaveToEventLog_WhenKafkaSendFails_AndTransactionIdIsNull() {
-        // Given
         WalletEvent eventWithNullTransactionId = new WalletEvent(
                 EventTypes.WALLET_FUNDED,
                 "wallet-123",
@@ -153,13 +141,10 @@ class KafkaProducerTest {
 
         when(kafkaTemplate.send(anyString(), any(WalletEvent.class))).thenReturn(future);
 
-        // When
         kafkaProducer.sendEvent(eventWithNullTransactionId);
 
-        // Waiting a bit for the async callback to complete
         try { Thread.sleep(100); } catch (InterruptedException e) { Thread.currentThread().interrupt(); }
 
-        // Then
         verify(kafkaTemplate).send("wallet_event_topic", eventWithNullTransactionId);
         verify(walletEventLogRepository, never()).existsByTransactionId(anyString());
         verify(walletEventLogRepository, never()).save(any(WalletEventLog.class));
@@ -167,7 +152,6 @@ class KafkaProducerTest {
 
     @Test
     void shouldHandleDifferentEventTypes() {
-        // Given
         WalletEvent walletCreatedEvent = new WalletEvent(
                 EventTypes.WALLET_CREATED,
                 "wallet-new",
@@ -185,16 +169,13 @@ class KafkaProducerTest {
 
         when(kafkaTemplate.send(anyString(), any(WalletEvent.class))).thenReturn(future);
 
-        // When
         kafkaProducer.sendEvent(walletCreatedEvent);
 
-        // Then
         verify(kafkaTemplate).send("wallet_event_topic", walletCreatedEvent);
     }
 
     @Test
     void shouldHandleFailedTransferEvent() {
-        // Given
         WalletEvent failedTransferEvent = new WalletEvent(
                 EventTypes.TRANSFER_FAILED,
                 "wallet-123",
@@ -214,13 +195,10 @@ class KafkaProducerTest {
         when(kafkaTemplate.send(anyString(), any(WalletEvent.class))).thenReturn(future);
         when(walletEventLogRepository.existsByTransactionId("transfer-fail-txn")).thenReturn(false);
 
-        // When
         kafkaProducer.sendEvent(failedTransferEvent);
 
-        // Waiting a bit for the async callback to complete
         try { Thread.sleep(100); } catch (InterruptedException e) { Thread.currentThread().interrupt(); }
 
-        // Then
         verify(walletEventLogRepository).save(walletEventLogCaptor.capture());
 
         WalletEventLog savedLog = walletEventLogCaptor.getValue();
