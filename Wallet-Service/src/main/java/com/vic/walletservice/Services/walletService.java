@@ -11,7 +11,7 @@ import com.vic.walletservice.Exceptions.WalletNotFoundException;
 import com.vic.walletservice.Kafka.KafkaProducer;
 import com.vic.walletservice.Mappers.WalletMapper;
 import com.vic.walletservice.Models.Wallet;
-import com.vic.walletservice.Models.Wallet_transactions;
+import com.vic.walletservice.Models.WalletTransactions;
 import com.vic.walletservice.Repositories.WalletRepository;
 import com.vic.walletservice.Repositories.Wallet_Transactions_Repository;
 import org.slf4j.Logger;
@@ -22,6 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -87,7 +88,7 @@ public class walletService {
         Wallet wallet = walletRepository.findById(walletId).orElseThrow(() -> new WalletNotFoundException("Wallet not found"));
 
 
-        Wallet_transactions transactions = new Wallet_transactions();
+        WalletTransactions transactions = new WalletTransactions();
         transactions.setWallet(wallet);
         transactions.setAmount(amount);
         transactions.setReceiverId(walletId);
@@ -110,7 +111,7 @@ public class walletService {
             }
         }
         transactions.setStatus(status);
-       Wallet_transactions savedTransaction = transactionsRepository.save(transactions);
+       WalletTransactions savedTransaction = transactionsRepository.save(transactions);
 
         sendKafkaEvent(
                 new WalletEvent(
@@ -136,7 +137,6 @@ public class walletService {
             throw new GlobalExceptionHandler.GlobalException("Cannot transfer funds to the same wallet");
         }
 
-        // deterministic order lock to avoid deadlocks
         String firstId = fromWalletId.compareTo(toWalletId) < 0 ? fromWalletId : toWalletId;
         String secondId = fromWalletId.compareTo(toWalletId) < 0 ? toWalletId : fromWalletId;
 
@@ -148,7 +148,7 @@ public class walletService {
         Wallet fromWallet = fromWalletId.equals(firstId) ? first : second;
         Wallet toWallet = fromWalletId.equals(firstId) ? second : first;
 
-        Wallet_transactions transactionsFrom = new Wallet_transactions();
+        WalletTransactions transactionsFrom = new WalletTransactions();
         transactionsFrom.setWallet(fromWallet);
         transactionsFrom.setAmount(amount);
         transactionsFrom.setSenderId(fromWalletId);
@@ -156,7 +156,7 @@ public class walletService {
         transactionsFrom.setCreatedAt(LocalDateTime.now());
         transactionsFrom.setType(TransactionType.TRANSFER_OUT);
 
-        Wallet_transactions transactionTo = new Wallet_transactions();
+        WalletTransactions transactionTo = new WalletTransactions();
         transactionTo.setWallet(toWallet);
         transactionTo.setAmount(amount);
         transactionTo.setSenderId(fromWalletId);
@@ -232,7 +232,7 @@ public class walletService {
      * this gets a user's wallet or wallets if multiple wallets are found. it returns an empty list otherwise
      */
     public List<Wallet> getUserWallets(String userId) {
-        List<Wallet> userWallets = null;
+        List<Wallet> userWallets = new ArrayList<>();
         try {
             userWallets = walletRepository.findByUserId(userId);
 

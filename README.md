@@ -155,6 +155,7 @@ GET /users/{userId}/activity - User activity timeline
 
 
 This project has a major trade off: the messages sent to the kafka consumer will be marked as acknowledged even when they failed to process.
-This is handled in the wallet service producer by saving the unsent messages into an eventlog to be sent later every 5 hours.
-Dead letter queue is not considered to fix this issue because Kafka doesn't resend the unprocessed messages automatically; it just saves them.
+This is handled in the wallet service producer by saving the unsent messages into an eventlog to be sent later every 5 hours. 
+I can't think of a better solution to this in the history service with the consumer and
+dead letter queue is not considered to fix this issue because Kafka doesn't resend the unprocessed messages automatically; it just saves them.
 
